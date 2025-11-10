@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: LoadLaterAssets
+  m_EditorClassIdentifier: 
+  m_GroupName: LoadLaterAssets
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 179266fb59df528a5850bce9bf468d4d
+  m_SerializeEntries:
+  - m_GUID: 1cf3e44807b4440008ee44a347d5d637
+    m_Address: Assets/Audio/Soundimage/Hope in Dystopia.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 35f698ab8f97cfc48958b5757210402f
+    m_Address: Assets/Audio/Soundimage/Steamtech Mayhem_Looping.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 429a8fd2717ff9bca9dd8b73dc546d4a
+    m_Address: Assets/Audio/Soundimage/When Machines Dream_Looping.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af96f8c43380c9877ba5d3980fe93df9
+    m_Address: Assets/Audio/Soundimage/Winter in 5th Sector.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dd7c1a6eb1273fb0c8cccb5949b1fc07
+    m_Address: Assets/Audio/Soundimage/Star Light_Looping.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: efd653e265a63dd76985f16034b7728a
+    m_Address: Assets/Audio/Soundimage/They're Here_Looping.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f0f7cd118aff902a59ff192c67c05f53, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 2334e23f5452766079b36383cd0917b1, type: 2}
+    - {fileID: 11400000, guid: 8c9de165e9033b20c97314c7bc42f156, type: 2}

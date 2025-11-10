@@ -1,0 +1,267 @@
+(function levelDescription()
+  (if FIRSTTIME
+    (return ($ "The place of the secretive " NAMES.chronodome " laboratories. Why would the " NAMES.aliens " reappear here first."))
+    (return ($ "The place of the secretive " NAMES.chronodome " laboratories. Seemingly the research being done here was the reason for the " NAMES.alien " first attach."))
+  )
+)
+
+(function levelStart(isFirstInit)
+
+  (if isFirstInit(
+    (actor "right" { "actor" S "emotion" "idle" })
+    (playBGM "dialogue1")
+
+    (if FIRSTTIME
+    (
+      (if (isChar A) (firstTimeStartAlice))
+      (if (isChar B) (firstTimeStartBob))
+    )
+    ( ; Else
+      (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+      (switch
+        ((isChar A) (startAlice))
+        ((isChar B) (startBob))
+        ((isChar C) (startCaesar))
+      )
+    ))
+  ) (
+    (startLevel)
+  ))
+
+  (playBGM "s2l1")
+  (startWaves)
+)
+
+(function levelEnd ()
+  (actor "right" { "actor" S "emotion" "idle" })
+
+  (if FIRSTTIME
+  (
+    (if (isChar A) (firstTimeEndAlice))
+    (if (isChar B) (firstTimeEndBob))
+  )
+  ( ; Else
+    (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+    (switch
+      ((isChar A) (endAlice))
+      ((isChar B) (endBob))
+      ((isChar C) (endCaesar))
+    )
+  ))
+
+  (setFlag "levelRepeat")
+
+  (finishLevel)
+)
+
+(function firstTimeStartAlice()
+  (actor "left" { "actor" A "emotion" "idle" })
+  (line "left" "So this is where we lost contact with " C.name " yea?")
+  (line "right" "Correct, we believe that " C.name " was caught by surprise.")
+  (line "left" "What's the SST doing!? Why haven't they found them!")
+  (line "right" "Stealth probes that could get close enough have reported that the facility where " C.name " was, has been destroyed.")
+  (line "left" "... oh")
+  (line "right" "But our hope is that we may recover some of research they were working on.")
+  (line "left" "So we're just here to dig through their remains in order to help ourselves?!")
+  (line "right" "Their research is more important that you realise " A.name ", we can only hope that they're death was not in vain.")
+  (line "left" "...")
+
+  (define appearTime (getTime))
+  (playEffect "time" true)
+  (wait 1500)
+  (actor "right" { "actor" C })
+  (wait 1000)
+  (playEffect "time" false)
+  (wait 1000)
+  (line "left" "Whoa! " C.name "! You're alive! Where did you come from!")
+
+  (actor "left" { "actor" S })
+  (line "left" C.name "! You survived? How did you escape?")
+  (line "right" "Sorry, I need to check the current time... So it's been two days.")
+
+  (actor "left" { "actor" A })
+  (line "left" "Yes it's been two days! We thought you were dead!")
+  (line "right" "Ahh, yes, that is a reasonable conclusion given the evidence.")
+
+  (define now (getTime))
+  (define diff (math.round (- now appearTime) 10))
+  (line "right" "Well it's only been " diff " seconds for me.")
+
+  (actor "left" { "actor" S })
+  (line "left" "So this means your research was a success?")
+  (line "right" "Yes, although more testing would have been prudent, the attack did not leave me with much choice.")
+
+  (actor "right" { "actor" A })
+  (line "right" "Hold on! " C.name " you never mentioned any research to us, what is this about?")
+
+  (line "left" "... Well I suppose I've got to give an explanation. " C.name " was working on time manipulation.")
+  (actor "left" { "actor" C })
+  (line "left" "More specifically " NAMES.mtm ".")
+
+  (line "right" "Well I don't know what that is, but you're back!")
+
+  (line "left" "I suppose you say I never left... But yes I'm back.")
+
+  (actor "left" { "actor" A })
+  (actor "right" { "actor" S })
+
+  (line "right" "We'll have to find out what " C.name " means by that later, it looks like they hadn't fully left the star system, prepare to launch!")
+
+  (startLevel)
+  (line "left" "Yea let's do this!")
+
+  (actor "right" { "actor" C })
+  (line "right" "I believe I can be of help too.")
+)
+
+(function firstTimeEndAlice()
+  (actor "left" { "actor" A "emotion" "idle" })
+  (actor "right" { "actor" C "emotion" "idle" })
+
+  (line "left" "We did it! Was that what you were up against before?")
+  (line "right" "No, the size of this attack was larger than last time.")
+  (line "left" "Well anyway we did it!")
+
+  (actor "right" { "actor" S "emotion" "idle" })
+  (line "right" "You are both to be commended for your actions here.")
+
+  (actor "left" { "actor" C "emotion" "idle" })
+  (line "left" "I have been able to recover some more of my prototypes, I think we should have a safe guard now.")
+  (line "right" "A safe guard?")
+  (line "left" "Yes, we should be able to have a 'do-over' for a specific region and time. In essence we can repeat a mission.")
+  (line "right" "Are you sure your prototype is ready for that?")
+  (line "left" "Yes, in fact, part of the reason why I survive the attack was that I was able to give myself enough time to create the temporary teleporter in order to make my escape.")
+  (line "right" "Right, you'll have to prepare a full report on what's been going on.")
+  (line "left" "... yes I suppose I will.")
+
+  (actor "right" { "actor" A "emotion" "idle" })
+  (line "right" "It sounds like you invented time travel, survived a huge alien invasion attack and you see more upset about having to write a report!")
+  (line "left" "... Writing reports seem to have their own time warping effect.")
+  (line "right" "Yea they're boring, but I think what you've done sounds really important! Let's celebrate!")
+)
+
+(function firstTimeStartBob()
+  (actor "left" { "actor" B "emotion" "idle" })
+  (line "left" "Seems like " C.name " likes hanging out in strange places, an usual star system this looks like.")
+  (line "right" "Apparently the combination of the Wolf-Rayet star and Stellar sized Black Holes was perfect for their research.")
+  (line "right" "Unfortunately those same conditions affect long range sensors, which prevented us from knowing what had happened here and probably why " C.name " was caught off guard.")
+  (line "right" "Long ranged probes could see that the facility where " C.name " was posted has been destroyed.")
+  (line "left" "Sounds like " C.name " knew the risks, but it's still hard to accept.")
+  (line "right" "Our hope is that we may recover some of work they were working on.")
+  (line "left" "So what was it that they were working on here?")
+  (line "right" "Their research was classified " B.name ", but hopefully they will still be of use.")
+  (line "left" "...")
+
+  (define appearTime (getTime))
+  (playEffect "time" true)
+  (wait 1500)
+  (actor "right" { "actor" C })
+  (wait 1000)
+  (playEffect "time" false)
+  (wait 1000)
+  (line "left" "Hold up! " C.name "! You're alive! Where did you come from!")
+
+  (actor "left" { "actor" S })
+  (line "left" C.name "! How did you escape?")
+  (line "right" "Sorry, I need to check the current time... So it's been two days.")
+
+  (actor "left" { "actor" B })
+  (line "left" "Yea it's been two long days! It took us that long to find a destroyed facility that you were apparently still inside of.")
+  (line "right" "Ahh, yes, that is a reasonable conclusion given the evidence.")
+
+  (define now (getTime))
+  (define diff (math.round (- now appearTime) 10))
+  (line "right" "Well it's only been " diff " seconds for me.")
+
+  (actor "left" { "actor" S })
+  (line "left" "So this means your research was a success?")
+  (line "right" "Yes, although more testing would have been prudent, the attack did not leave me with much choice.")
+
+  (actor "right" { "actor" B })
+  (line "right" "Hold up! " C.name " why have you never uttered anything about this research to me?")
+
+  (line "left" "... Well I suppose I've got to give an explanation. " C.name " was working on time manipulation.")
+  (actor "left" { "actor" C })
+  (line "left" "More specifically " NAMES.mtm ".")
+
+  (line "right" "I guess that is supposed to explain what we saw just before you reappeared?")
+
+  (line "left" "Well I didn't specifically disappear... But yes that is how I reappeared.")
+
+  (actor "left" { "actor" B })
+  (actor "right" { "actor" S })
+
+  (line "right" "We'll have to find out what " C.name " means by that later, it looks like they hadn't fully left the star system, prepare to launch!")
+
+  (startLevel)
+  (line "left" "Time to kick them out of here!")
+
+  (actor "right" { "actor" C })
+  (line "right" "I believe I can be of help too.")
+)
+
+(function firstTimeEndBob()
+  (actor "left" { "actor" B "emotion" "idle" })
+  (actor "right" { "actor" C "emotion" "idle" })
+
+  (line "left" "Hee haw! Was that what you were up against before?")
+  (line "right" "No, the size of this attack was larger than last time.")
+  (line "left" "Well we did it!")
+
+  (actor "right" { "actor" S "emotion" "idle" })
+  (line "right" "You are both to be commended for your actions here.")
+
+  (actor "left" { "actor" C "emotion" "idle" })
+  (line "left" "I have been able to recover some more of my prototypes, I think we should have a safe guard now.")
+  (line "right" "A safe guard?")
+  (line "left" "Yes, we should be able to have a 'do-over' for a specific region and time. In essence we can repeat a mission.")
+  (line "right" "Are you sure your prototype is ready for that?")
+  (line "left" "Yes, in fact, part of the reason why I survive the attack was that I was able to give myself enough time to create the temporary teleporter in order to make my escape.")
+  (line "right" "Right, you'll have to prepare a full report on what's been going on.")
+  (line "left" "... yes I suppose I will.")
+
+  (actor "right" { "actor" B "emotion" "idle" })
+  (line "right" "While reading reports isn't exactly my favourite past time, I'm keen to see how this plays out.")
+  (line "left" "... I am not looking forward to the time warping effect that writing reports seem to elicit.")
+  (line "right" "I believe in your ability after what we've seen. For now though let's party!")
+)
+
+
+(function startAlice()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function startBob()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function startCaesar()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endAlice()
+  (line "left" "...")
+  (line "right" "...")
+)
+
+(function endBob()
+  (line "left" "...")
+  (line "right" "...")
+)
+
+(function endCaesar()
+  (line "left" "...")
+  (line "right" "...")
+)
+
+(register "start" levelStart)
+(register "end" levelEnd)

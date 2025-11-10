@@ -1,0 +1,259 @@
+(function levelDescription()
+  (return ($ "The quiet tropical planet of " NAMES.blueSands " which seems to be the " NAMES.aliens "'s first target in their most recent invasion."))
+)
+
+(function levelStart(isFirstInit)
+  (if isFirstInit (
+    (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+    (actor "right" { "actor" S "emotion" "idle" })
+    (playBGM "dialogue1")
+
+    (if (isChar A) (startAlice))
+    (if (isChar B) (startBob))
+    (if (isChar C) (startCaesar))
+  ) (
+    (startLevel)
+  ))
+
+  (playBGM "s1l1")
+  (startWaves)
+)
+
+(function levelEnd ()
+  (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+  (actor "right" { "actor" S "emotion" "idle" })
+
+  (if (isChar A) (endAlice))
+  (if (isChar B) (endBob))
+  (if (isChar C) (endCaesar))
+
+  (finishLevel)
+)
+
+(define needShowUpgradeTutorial (getFlag "needShowUpgradeTutorial"))
+(function levelUpdate()
+  (define needShowUpgradeTutorial (getFlag "needShowUpgradeTutorial"))
+  (if (== needShowUpgradeTutorial false)
+  (
+    (register "update")
+    (print "No need to show upgrade tutorial")
+    (return)
+  ))
+
+  (define money (getStat "money"))
+  (if (== (>= money 20) true)
+  (
+    (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+    (actor "right" { "actor" S "emotion" "idle" })
+
+    (pauseGame true)
+    (line "right" "You've got enough money to buy another tank or upgrade the one you're currently using.")
+    (line "left" "Ooo! How do I do that?")
+    (line "right" "The button in the top right will bring up the upgrade screen.")
+    (line "right" "For now it might be better to just buy another tank or two. Remember to keep an eye on the money you've received.")
+    (line "right" "Upgrading tanks and buying new ones are you main way of fending off the attacks.")
+    (line "left" "Right! Will do!")
+
+    (setFlag "needShowUpgradeTutorial" false)
+    (pauseGame false)
+
+    (register "update")
+  ))
+)
+
+(register "start" levelStart)
+(register "end" levelEnd)
+
+(if needShowUpgradeTutorial (
+  (print "Upgrade tutorial not shown, registering ")
+  (register "update" levelUpdate)
+))
+
+(function startAlice()
+  (if (== PLAYCOUNTS.A 0)
+  (
+    (line "left" "Ready to roll out! What are we up against?")
+    (line "right" "Reports show a small force of " NAMES.alienGrunts ", but we know they'll be followed by a " NAMES.alienBoss ".")
+    (line "left" "If I could punch them in the face I would!")
+    (line "right" "Stay focused, remember you've only got access to the simple " NAMES.tankBolt " tank.")
+    (line "left" "That's all I'll need!")
+    (startLevel)
+
+    (actor "right") ; Clear right actor
+    (line "left" "Let's go!")
+  )
+  ( ; Else
+    (line "left" "We've got them this time! What we were up against again?")
+    (line "right" "Same as last time, a small force of " NAMES.alienGrunts " followed by a " NAMES.alienBoss ".")
+    (line "left" "Maybe I'll get to punch them in the face this time!")
+    (line "right" "Stay focused, you have more than the " NAMES.tankBolt " tank available to you this time.")
+    (startLevel)
+    (line "left" "Let's go!")
+  ))
+)
+
+(function endAlice()
+  (if (== PLAYCOUNTS.A 0)
+  (
+    (line "left" "Alright! We did it! We need to tell " C.name " that the " NAMES.aliens " have shown their faces again!")
+    (line "right" "Unfortunately right before you launched we lost signal with the star system that " C.name " was posted in.")
+    (line "left" "What? Well we've got to go help them!")
+    (line "right" "The SST is already preparing a rescue, however we've got to deal with the imminent threat to this star system first.")
+    (line "left" "I hope they're okay.")
+
+    (actor "right" { "actor" D "emotion" "idle" })
+    (line "right" "Thank you " A.name "! I knew you'd come through for us!")
+    (line "left" "Of course I wasn't going to let anything to happen to you!")
+    (line "right" "I guess you'll be heading out again now this has happened.")
+    (line "left" "Yea probably, but I'll be back so soon!")
+    (line "right" "I know you will. Take care!")
+  )
+  ( ; Else
+    (line "left" "Yea! We did it again! I wonder if " D.name " will show up like last time.")
+
+    (actor "right" { "actor" D "emotion" "idle" })
+    (line "right" "Thank you " A.name "! I knew you'd come through for us!")
+    (line "left" "Yea duh of course I wasn't going to let anything to happen to you!")
+    (line "right" "I guess you'll be heading out again now this has happened.")
+
+    (line "left" "Right yes I'll be heading out again.")
+    (line "left" "But don't worry, I'll be back soon.")
+    (line "right" "I know you will. Take care!")
+
+    (actor "right" { "actor" S })
+    (line "left" "I don't know why, but I had hoped that " D.name " would have remembered.")
+    (line "left" "But I suppose it's for the best that she only has to experience this once.")
+
+    (line "right" "I know this will be rough on you, but I you'll get through.")
+    (line "left" "Yea of course, we've got the team back together!")
+  ))
+)
+
+(function bobTellsAboutHome()
+  (line "right" "Your profile says that your home address is in a different star system.")
+  (line "left" "Yea, I had some people chasing my tail before I signed up to the TDF.")
+  (line "left" "But after seeing what " C.name " has been able to do with the river of time, it somehow seems less important to hide that fact.")
+  (setFlag "bobsHome")
+)
+
+(function startBob()
+  (define knewThundersRest (getFlag "thundersRestName"))
+  (define knewBobsHome (getFlag "bobsHome"))
+
+  (if (== PLAYCOUNTS.B 0)
+  (
+    (line "left" "So they attacked here just before they came for " NAMES.thundersRest ".")
+    (if (== knewThundersRest true)
+    (
+      (line "right" "Correct, after they took us by surprise in SS2 they came here next.")
+      (if (== knewBobsHome true)
+      (
+        (line "left" "It's a good thing we were able to keep " NAMES.balreg " safe after all that.")
+      )
+      (
+        (line "left" "I don't think I mentioned that my home-moon of " NAMES.balreg " sits next to Thunder's Rest.")
+        (bobTellsAboutHome)
+      ))
+    )
+    ( ; Else
+      (line "right" NAMES.thundersRest "? Is that where you were stationed?")
+      (line "left" "Yea that big bright gas giant hovering over " NAMES.balreg " is " NAMES.thundersRest ".")
+      (bobTellsAboutHome)
+      (setFlag "thundersRestName")
+    ))
+    (line "right" "We had not heard from the " NAMES.aliens "'s in some time, we're not sure what's caused them to attack again.")
+    (line "left" "Since this is early on, what are we up against?")
+    (line "right" "You shouldn't have a problem dealing with some " NAMES.alienGrunts ", but look out for the " NAMES.alienBoss " aliens.")
+
+    (startLevel)
+    (line "left" "Let's get to it.")
+  )
+  ( ; Else
+    (line "left" "I see, here we go again.")
+    (line "right" "You shouldn't have a problem dealing with some " NAMES.alienGrunts ", but look out for the " NAMES.alienBoss " units.")
+    (startLevel)
+    (line "left" "Let's get to it.")
+  ))
+)
+
+(function endBob()
+  (if (== PLAYCOUNTS.B 0)
+  (
+    (line "left" "Is this where " A.name " is from?")
+    (line "right" "Correct, they were on leave when the attack started so we were lucky to have someone in the area already.")
+
+    (dextraThankYou)
+    (line "left" "Well you're quite welcome, the SST wouldn't let anything happen here.")
+
+    (dextraKnowsSteve)
+
+    (actor "left" { "actor" B })
+    (actor "right" { "actor" S })
+
+    (line "left" "Special mission?")
+    (line "right" "Remember, to them this is the first time they've been attacked.")
+    (line "left" "Ahh, less trouble than explaining that some time magic whisked " A.name " away.")
+    (line "right" "Something along those lines.")
+    (line "right" "Good work!")
+  )
+  ( ; Else
+    (dextraThankYou)
+    (line "left" "Uhh yes, well you're quite welcome, the SST wouldn't let anything happen here.")
+
+    (dextraKnowsSteve)
+
+    (actor "left" { "actor" B })
+    (actor "right" { "actor" S })
+
+    (line "left" "It's still doesn't sit right that these people are not only getting dragged into a fight with these " NAMES.aliens ", but time travel too.")
+    (line "right" "As long as we leave them in a better state than when we found them that's the best we can do for them.")
+    (line "left" "I suppose you're right.")
+  ))
+)
+
+(function startCaesar()
+  (line "left" "It's most amazing that at this very moment, in this timeline " NAMES.s2 " was under attack along with my local time self.")
+  (line "right" "The work you've done is what allows us to be back here, to make sure we properly defend this planet.")
+  (startLevel)
+  (line "left" "Let's finish this.")
+)
+
+(function endCaesar()
+  (if (== PLAYCOUNTS.C 0)
+  (
+    (line "left" "As expected.")
+    (line "right" "I hope you're taking this seriously.")
+    (line "left" "We had already won this fight before, otherwise I wouldn't be here.")
+    (line "right" "Ahh yea, I suppose you're quite right.")
+
+    (dextraThankYou)
+    (line "left" "You're welcome.")
+
+    (dextraKnowsSteve)
+  )
+  ( ; Else
+    (line "left" "As it was, so it was again.")
+    (line "right" "Feeling a bit philosophical after looping time?")
+    (line "left" "The whole experience will change how we perceive and live within time.")
+    (line "right" "... yes well it's definitely life-changing.")
+
+    (dextraThankYou)
+    (line "left" "You're welcome.")
+
+    (dextraKnowsSteve)
+  ))
+)
+
+(function dextraThankYou ()
+  (actor "right" { "actor" D "emotion" "idle" })
+  (line "right" "Thank you! I was so scared when the attack started!")
+  (line "right" " My friend had disappeared and I wasn't sure if she had been called to help or not.")
+)
+
+(function dextraKnowsSteve ()
+  (actor "left" { "actor" S })
+  (line "right" "Oh hey! " NAMES.steve " were you also called out to help? Where's " A.name "?")
+  (setFlag "knowSteve")
+  (line "left" "Hello " D.name ", don't worry " A.name " is working right now. I'm sorry we had to interrupt her leave but she was called away on an important mission.")
+  (line "right" "Oh that's such a relief to hear! Well I better get going, thanks again!")
+)

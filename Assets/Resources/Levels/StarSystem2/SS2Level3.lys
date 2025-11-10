@@ -1,0 +1,166 @@
+(function levelDescription()
+  (return ($ "The " NAMES.aliens " seem to have found a way to reverse time and are attacking every planet, you're going to need the " NAMES.ship " to counter this."))
+)
+
+(function levelStart(isFirstInit)
+  (if isFirstInit(
+    (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+    (actor "right" { "actor" S "emotion" "idle" })
+    (playBGM "dialogue1")
+
+    (line "left" "...")
+    (line "right" "...")
+
+    ; (if (isChar A) (startAlice))
+    ; (if (isChar B) (startBob))
+    ; (if (isChar C) (startCaesar))
+  ))
+
+  (startLevel)
+  (offsetStarSystem "s4" 0 -250)
+
+  (playBGM "s2l3")
+  (startWaves)
+)
+
+(function levelEnd ()
+  (actor "left" { "actor" C "emotion" "idle" })
+  (actor "right" { "actor" S "emotion" "idle" })
+
+  (line "left" "We are safely through the wormhole.")
+  (line "right" "And where are we exactly?")
+
+  (line "left" "Navcomp is registering this as a previously unknown star system.")
+  (actor "left" { "actor" A "emotion" "idle" })
+  (actor "right" { "actor" C "emotion" "idle" })
+
+  (line "left" "Hold up! Is that planet moving?")
+  (line "right" "... yes it does appear to be moving.")
+
+  (line "left" "Do planets do that? And that moon is going around the planet too!")
+  (line "right" "I think it's safe to say that this region of space is operating under some different laws of physics that allows large celestial bodies is revolve around each other.")
+  (line "left" "That's unbelievable!")
+
+  (actor "right" { "actor" S "emotion" "idle" })
+  (line "right" "I think it's safe to assume that we're now in " NAMES.aliens " space, we should be prepared for further encounters.")
+
+  (finishLevel)
+)
+
+(define playerThroughPortal false)
+(define portalShowTimer 0)
+(define portalCloseCountdown 3)
+(define shownPortal false)
+(define levelEnded false)
+
+(function doPrePortalDialog ()
+  (actor "left" { "actor" A "emotion" "idle" })
+  (actor "right" { "actor" S "emotion" "idle" })
+
+  (line "left" "We did it!")
+  (line "right" "We're not reading any further " NAMES.aliens " activity in the region.")
+  (line "left" "So what now? We've just driven them back, but are they done? Also how did they get back herE?")
+  (line "right" "Hopefully we'll have the time to find those answers.")
+
+  (actor "left" { "actor" C "emotion" "idle" })
+  (line "left" "Command, I'm picking up some strange readings.")
+  (line "right" "What now?")
+  (line "left" "It looks to be an artificial singularity is being constructed.")
+
+  (actor "right" { "actor" A "emotion" "idle" })
+  (line "right" "A black hole is forming!?")
+
+  (line "left" "Thankfully not, this appears to be closer to a wormhole.")
+  (line "right" "Oh, that's good?")
+
+  (line "left" "Better than a 'black hole'.")
+
+  (openPortals "Portal3A" "Portal1A")
+  (showStarSystem "s4")
+  (set shownPortal true)
+
+  (actor "right" { "actor" S "emotion" "idle" })
+  (line "right" "I believe we have no choice but to investigate.")
+
+  (actor "left" { "actor" B "emotion" "idle" })
+  (line "left" "Onwards into the unknown.")
+)
+
+(function levelUpdate ()
+  (if (== shownPortal false) (
+    (if (== (getStat "shipsLeft") 0) (
+
+      (doPrePortalDialog)
+
+    ))
+  ))
+
+  (if (&& playerThroughPortal (! levelEnded)) (
+    (if (> portalCloseCountdown 0)
+    (
+      (-= portalCloseCountdown DELTATIME)
+    )
+    (
+      (print "Closing portals")
+      (set levelEnded true)
+      (closePortals)
+
+      (endLevel)
+    ))
+  ))
+)
+
+(function startAlice()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endAlice ()
+  (line "left" "...")
+  (line "right" "...")
+)
+
+(function startBob()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endBob ()
+  (line "left" "...")
+  (line "right" "...")
+)
+
+(function startCaesar()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endCaesar ()
+  (line "right" "Umm, good job.")
+  (line "left" "... thanks.")
+)
+
+(function onMovedThroughPortal (portableTarget)
+  (if portableTarget.isPlayer (
+    (set playerThroughPortal (! playerThroughPortal))
+    (print "Player through portal")
+    (set portalShowTimer 3)
+  ))
+)
+
+(function onPortalsClosed ()
+  (print "Portal closed")
+  (hideStarSystem "s2")
+)
+
+(register "start" levelStart)
+(register "end" levelEnd)
+(register "update" levelUpdate)
+(register "movedThroughPortal" onMovedThroughPortal)
+(register "portalsClosed" onPortalsClosed)

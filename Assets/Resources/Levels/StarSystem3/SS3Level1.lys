@@ -1,0 +1,155 @@
+(function levelDescription()
+  (if timeDialogTriggered (
+    (return ($ NAMES.s3 " is home to an unusual singularity that appears to be connected with the " NAMES.aliens "."))
+  ))
+  (return ($ NAMES.s3 " is home to an unusual black hole tied to a single blue star and few planets."))
+)
+
+(function levelStart(isFirstInit)
+  (if isFirstInit(
+    (actor "right" { "actor" C "emotion" "idle" })
+    (actor "left" { "actor" A "emotion" "idle" })
+    (playBGM "dialogue1")
+
+    (line "left" "Is this really where the " NAMES.aliens " are coming from?")
+    (line "right" "The source of their communications appears to be emanating from the singularity.")
+    (line "left" "Look " C.name ", you know I love your techno talk, but how is a big hole telling the " NAMES.aliens " what to do?")
+    (line "right" "I'm not sure. I'm not convinced that this is a regular singularity.")
+
+    (actor "right" { "actor" S "emotion" "idle" })
+    (actor "left" { "actor" C "emotion" "idle" })
+
+    (line "right" "What are you suggesting?")
+    (line "left" "I think the apparent event horizon is not what it appears. Whilst the gravity is strong, it doesn't actually exceed the limit required to trap light.")
+    (line "left" "In essence it is a phenomenon of which we have no prior knowledge, but if light can escape, then it is not a black hole.")
+    (line "left" "I do believe that it may react with our " NAMES.tankLaser " tanks fire. Perhaps firing at the singularity will disrupt their communications.")
+
+    (line "right" "For now command wants us to control the region, regardless of the origin of the gravity well, the " NAMES.aliens " are using it as a staging ground.")
+
+    (actor "left" { "actor" B "emotion" "idle" })
+    (line "left" "So all you want us to do is to clear them out, I think the three of us can manage.")
+
+    (actor "right" { "actor" A "emotion" "idle" })
+    (line "right" "Totally! I don't know what " C.name " is really going on about, but shooting things I can get behind!")
+
+    (startLevel)
+
+    (actor "right" { "actor" S })
+    (line "right" "Get ready to roll out!")
+  ) (
+    (startLevel)
+  ))
+
+  (playBGM "s3l1")
+  (startWaves)
+)
+
+(function levelEnd ()
+  (actor "left" { "actor" A "emotion" "idle" })
+  (actor "right" { "actor" S "emotion" "idle" })
+
+  (if (> ABILITIES.time.timesTriggered 0) (
+    (unlock { "type" "level" "starSystem" "s1" "level" "l4" })
+    (setFlag "lockedSS1")
+
+    (line "left" "We did it! We pushed them back!")
+    (line "right" "Good job everyone.")
+
+    ; Play effect
+    (playEffect "reverse-lightning" true)
+    (wait (* 1000 6))
+
+    (line "left" "What was that?")
+
+    (actor "right" { "actor" C })
+    (line "right" "It appears that my estimate that this was not a regular singularity were correct, however I did not account for this.")
+
+    (actor "left" { "actor" B })
+    (line "left" "What didn't you account for?")
+
+    (line "right" "The " NAMES.aliens " have somehow managed to copy how we manipulate time.")
+
+    (actor "left" { "actor" C })
+    (actor "right" { "actor" S })
+
+    (line "right" "We're just getting reports of " NAMES.aliens " attacking " NAMES.s1 ".")
+    (line "left" "... This could mean that they've already found a way to reproduce our technology.")
+
+    (actor "right" { "actor" A })
+    (line "right" "Well even if it took them some time if we didn't actually defeat them here wouldn't they be able to have eventually made a copy?")
+
+    (line "left" "That is a surprisingly insightful conclusion; yes that does seem likely if it is the case that we did not successfully defeat them.")
+
+    (actor "left" { "actor" B })
+    (actor "right" { "actor" S })
+
+    (line "left" "So what's going on back home?")
+    (line "right" "It looks like they're about to attack again, but this time they aren't giving us the choice of when to defend each planet.")
+
+    (line "left" "How are we going to defend every planet at the same time?")
+
+    (actor "left" { "actor" A })
+    (line "left" "I've got an idea! Why don't we use the " NAMES.ship "?")
+    (line "right" "The " NAMES.ship " is just a mobile base, it fitted out for frontline combat.")
+    (line "left" "Right, but what if we put the tanks on the outside of the " NAMES.ship "?!")
+
+    (line "right" "... You want to strap tanks to the outside of a starship?")
+    (line "left" "What's faster, upgrading the ship itself or making use of what we have already?")
+    (line "right" "... Hmm, we've got precious little time to make a decision. So with that in mind we're heading back to " NAMES.s1 "!")
+
+    (actor "right" { "actor" B })
+    (line "left" "Let's stick some tanks on a ship!")
+
+    (line "right" "I'd be lying if I didn't think that sounded a bit wild, but I'm not ignore a potential solution to save people.")
+  ) (
+    (unlock { "type" "level" "starSystem" "s4" "level" "l1" })
+    (line "right" "Looks like we've won!")
+  ))
+
+  (line "right" "Good job")
+
+  (finishLevel)
+)
+
+(define timeAbilityUsed false)
+(define timeDialogTriggered (getFlag "ss3l1/timeDialogTriggered"))
+(define timeCountDown 0)
+(function levelUpdate ()
+  (if (&& timeAbilityUsed (== timeDialogTriggered false)) (
+    (if (> (getTime) timeCountDown) (
+      (set timeDialogTriggered true)
+      (setFlag "ss3l1/timeDialogTriggered")
+
+      (pauseGame true)
+
+      (actor "left" { "actor" A "emotion" "idle" })
+      (actor "right" { "actor" C "emotion" "idle" })
+
+      (line "left" "What's going on?")
+      (line "right" "It appears that the singularity has reacted with my time manipulation ability.")
+
+      (actor "left" { "actor" B "emotion" "idle" })
+      (line "left" "Is it supposed to be reacting with your handling of time tech?")
+
+      (line "right" "It is not an expected result, however the current charge built up in the singularity has also reverted.")
+      (line "left" "So any charge built up in it will be removed when using your time ability?")
+      (line "right" "Yes, that appears to be what's happening.")
+
+      (pauseGame false)
+    ))
+  ))
+
+  (if (&& (== timeAbilityUsed false) ABILITIES.time.running) (
+    (set timeCountDown (+ 2.5 (getTime)))
+    (set timeAbilityUsed true)
+  ))
+)
+
+(register "start" levelStart)
+(register "end" levelEnd)
+
+(unless timeDialogTriggered
+  ; No need to define the level update if it has already been triggered before.
+  (print "Defining levelUpdate")
+  (register "update" levelUpdate)
+)

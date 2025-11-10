@@ -1,0 +1,194 @@
+(function levelDescription()
+  (define knewThundersRest (getFlag "thundersRestName"))
+  (if (== knewThundersRest true)
+    (return ($ "The small moon of " NAMES.balreg " which sits next to a huge gas giant. The " NAMES.aliens " seem to be sending motherships to hide in it's shadow."))
+  )
+  (return ($ "The small moon of " NAMES.balreg " which sits next to " NAMES.thundersRest ". The original home of " B.name ". The " NAMES.aliens " will be sending motherships to hide in it's shadow."))
+)
+
+(define startThundersRestLightning (getFlag "thundersRestLightning"))
+(function levelStart(isFirstInit)
+  (if isFirstInit (
+    (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+    (actor "right" { "actor" S "emotion" "idle" })
+
+    (playBGM "dialogue1")
+
+    (if (isChar A) (startAlice))
+    (if (isChar B) (startBob))
+    (if (isChar C) (startCaesar))
+  ) (
+    (startLevel)
+  ))
+
+  (playBGM "s1l2")
+  (startWaves)
+)
+
+(function levelEnd ()
+  (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+
+  (define endThundersRestLightning (getFlag "thundersRestLightning"))
+
+  (if (!= endThundersRestLightning startThundersRestLightning)
+    (line "left" "So that's why it's called " NAMES.thundersRest)
+  )
+
+  (if (isChar A) (endAlice))
+  (if (isChar B) (endBob))
+  (if (isChar C) (endCaesar))
+
+  (finishLevel)
+)
+
+(function startAlice()
+  (define knewThundersRest (getFlag "thundersRestName"))
+
+  ; First Alice play
+  (if (== PLAYCOUNTS.A 0)
+  (
+    (line "left" "Did you know this place is called " NAMES.thundersRest "?")
+    (if (== knewThundersRest true)
+    (
+      (line "right" "Yes, " B.name " told me in a previous loop.")
+    )
+    ( ; Else
+      (line "right" "No I didn't, I'll make a note of that.")
+      (setFlag "thundersRestName")
+    ))
+
+    (line "left" "I wonder where it got that name from.")
+    (line "right" "Seems like at different times in the past the planet gets covered by massive electrical storms.")
+    (line "right" "These storms would light up the night sky of the people who were attempting to make a life for themselves on the surrounding moons.")
+    (line "left" "It's not covered with storms now though, did they name it that after the storms disappeared?")
+    (line "right" "Yes it's likely it had a catalog name when the first settlers arrived and the name has somewhat stuck.")
+  ))
+
+  (if (> PLAYCOUNTS.A 0)
+  (
+    (line "left" "Back at " NAMES.thundersRest "! I love jumping into the seat of a " NAMES.tankGauss " tank!")
+    (setFlag "thundersRestName")
+  ))
+
+  (line "right" "Remember you'll be up against " NAMES.alienGrunts " coming from " NAMES.alienMothership " hiding behind " NAMES.thundersRest ".")
+  (startLevel)
+  (line "left" "Let's go defend those people!")
+)
+
+(function endAlice ()
+  (actor "right" { "actor" S "emotion" "idle" })
+
+  (line "left" "We did it!")
+  (line "right" "Good job.")
+)
+
+(function startBob()
+  (define knewThundersRest (getFlag "thundersRestName"))
+
+  ; First Bob play
+  (if (== PLAYCOUNTS.B 0)
+  (
+    (line "left" "Howdy I'm " B.name ". I heard we've got some " NAMES.alienGrunts " around.")
+    (line "right" "Affirmative " B.name ". Their force seems to be mostly " NAMES.alienGrunts ", but we've got " NAMES.alienMothership " signals showing up too. Make sure to not get overwhelmed.")
+    (line "left" "My " NAMES.tankGauss " tanks can handle any number of grunts they can throw at us.")
+    (startLevel)
+    (line "left" "Let's ride!")
+  ))
+
+  ; Second Bob play
+  (if (== PLAYCOUNTS.B 1)
+  (
+    (define knewBobsHome (getFlag "bobsHome"))
+
+    (if knewBobsHome
+    (
+      (line "left" "Well looks like we're back home. I told you that before right?")
+      (line "right" "Yes you mentioned that during another mission.")
+      (line "left" "Feels strange to see things how they were just a few days ago.")
+    )
+    ( ; Else
+      (line "left" "Well looks like we're back home. Did I tell you that last time?")
+      (line "right" "Your profile says that your home address is in a different star system.")
+      (line "left" "Yea, I had some people chasing my tail before I signed up to the TDF.")
+      (line "left" "But after seeing what " C.name " has been able to do with the river of time, it somehow seems less important to hide that fact.")
+      (setFlag "bobsHome")
+    ))
+
+    (line "right" "All the more reason to stay focused, remember you'll be up against " NAMES.alienGrunts " coming from " NAMES.alienMothership
+      (if knewThundersRest
+        ($ " hiding behind " NAMES.thundersRest ".")
+        " hiding behind the gas giant.")
+    )
+
+    (startLevel)
+    (if knewThundersRest
+    (
+      (line "left" "Don't worry " NAMES.balreg ", we're coming!")
+    )
+    ( ; Else
+      (line "left" "That gas giant is called " NAMES.thundersRest ", and my home is called " NAMES.balreg "!")
+      (setFlag "thundersRestName")
+    ))
+  ))
+
+  ; More than one Bob play
+  (if (> PLAYCOUNTS.B 1)
+  (
+    (line "left" "Thunder's Rest looks majestic as ever.")
+    (line "right" "We'll do this as many times as we have to.")
+    (startLevel)
+    (line "left" "I hear ya, let's get this started!")
+  ))
+)
+
+(function endBob ()
+  (actor "right" { "actor" S "emotion" "idle" })
+
+  (if (== PLAYCOUNTS.B 0)
+  (
+    (line "left" "Alright! That's what we do here!")
+    (line "left" "Does ol " C.name " know that these drones are back?")
+    (line "right" "Unfortunately we've lost contact with them. The star system they were posted in was attacked not long before we contact you.")
+    (line "left" "What! Well what I'm grateful that we able to help save this place, but we've got to get a lick on!")
+    (line "right" "The SST agrees, the research that " C.name " was doing could be very valuable to our efforts.")
+  )
+  ( ; Else
+    (line "left" "We did it!")
+    (line "right" "Good job.")
+  ))
+)
+
+(function startCaesar()
+  (define knewThundersRest (getFlag "thundersRestName"))
+
+  (line "left" "This is where we picked up " B.name " correct?")
+  (line "right" "Yes " B.name " was on leave here, he hadn't given a reason as to why though.")
+  (line "left" "From the previous reports the " NAMES.aliens " show up on the other side of this gas giant.")
+
+  (if knewThundersRest
+    (line "right" "Correct on the other side of " NAMES.thundersRest ".")
+    ; Else
+    (line "right" "Correct on the other side of this gas giant.")
+  )
+
+  (line "left" "A fairly simple attempt to hide from counter-attack.")
+  (startLevel)
+  (line "left" "Let us commence.")
+)
+
+(function endCaesar ()
+  (actor "right" { "actor" B "emotion" "idle" })
+
+  (line "left" B.name " why is the " NAMES.tankGauss " your tank of choice?")
+  (line "right" "Well now, that's a good question. To be honest I hadn't thought about it.")
+  (line "left" "I favour the " NAMES.tankLaser " tank because of the precision; the speed let's me target behind gravity wells that would scatter other projectiles.")
+  (line "right" "That's a pretty good answer. I think I like to be able to keep an eye on the whole field.")
+  (line "right" "I've had to accept that whilst I may wish I were a sharpshooter that I am no sharpshooter.")
+  (line "right" "So instead I try to take it all in, see the whole field. And being able to fire and forget lets me do that.")
+  (line "right" "And on a subjective note, I just prefer it. Obvious the " NAMES.tankRocket " would also suit that.")
+
+  (line "left" "Thank you for sharing.")
+)
+
+(register "start" levelStart)
+(register "end" levelEnd)

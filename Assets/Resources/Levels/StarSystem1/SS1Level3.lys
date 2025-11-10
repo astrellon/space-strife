@@ -1,0 +1,113 @@
+(function levelDescription()
+  (return ($ "The iron rich moon of " NAMES.drewe " orbits the fast spinning gas giant " NAMES.zephyr ". It's many gravity wells from all it's siblings make navigation complicated."))
+)
+
+(function levelStart(isFirstInit)
+  (if isFirstInit (
+    (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+    (actor "right" { "actor" S "emotion" "idle" })
+    (playBGM "dialogue1")
+
+    (if (isChar A) (startAlice))
+    (if (isChar B) (startBob))
+    (if (isChar C) (startCaesar))
+  ) (
+    (startLevel)
+  ))
+
+  (playBGM "s1l3")
+  (startWaves)
+)
+
+(function levelEnd ()
+  (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+  (actor "right" { "actor" S "emotion" "idle" })
+
+  (if (isChar A) (endAlice))
+  (if (isChar B) (endBob))
+  (if (isChar C) (endCaesar))
+
+  (finishLevel)
+)
+
+(function startAlice()
+  (if (== PLAYCOUNTS.A 0)
+  (
+    (line "left" "Why are they always going after places surrounded by moons!")
+    (line "right" "The more complex gravity wells provide them with cover and they know that.")
+    (line "right" "Which is why you'll be driving the " NAMES.tankRocket " tank.")
+    (line "left" "Ohh!")
+    (line "right" "The " NAMES.tankRocket " tank is well equipped for tighter spaces where regular projectiles might get lost.")
+    (startLevel)
+    (line "left" "Let's do this!")
+  )
+  ( ; Else
+    (line "left" "Okay I think I've gotten the hang of these rockets!")
+    (line "right" "That's good!")
+    (startLevel)
+  ))
+)
+
+(function endAlice ()
+  (if (== PLAYCOUNTS.A 0)
+  (
+    (line "left" "We did it! We saved all the planets in this star system yea?")
+    (line "right" "Good job. Yes the people here can breath a little easier tonight.")
+    (line "left" "Alright! So we can go rescue " C.name " right?")
+    (line "right" "... I'm afraid the long range probes haven't picked up anything yet.")
+    (line "left" "But we're still going right?")
+    (line "right" "Yes, the " NAMES.aliens " seemed to have left the area so we're heading in for a closer look.")
+    (line "left" "Please be okay " C.name "!")
+  )
+  ( ; Else
+    (line "left" "We did it!")
+    (line "right" "Good job.")
+  ))
+)
+
+(function startBob()
+  (if (== PLAYCOUNTS.B 0)
+  (
+    (line "left" "Hoo boy, the Moon Maze. Those suckers like to hide between the moons.")
+    (line "right" "That does appear to be their strategy. You'll have access to " NAMES.tankRocket " tanks for that reason.")
+    (line "left" "Ahh I guess that fits. Not my usual style but doesn't mean I can't launch some " NAMES.tankGauss " too.")
+    (line "right" "You're free to defend the planet however you see fit.")
+    (line "left" "Then let's get this party started! We've got appointment with " C.name ".")
+
+    (startLevel)
+    (line "right" "...")
+  )
+  ( ; Else
+    (line "left" "Okay I think I've gotten the hang of these rockets!")
+    (line "right" "That's good!")
+
+    (startLevel)
+  ))
+)
+
+(function endBob ()
+  (if (== PLAYCOUNTS.B 0)
+  (
+    (line "left" "Hee haw!")
+    (line "right" "Good job.")
+  )
+  ( ; Else
+    (line "left" "Hee haw!")
+    (line "right" "Good job.")
+  ))
+)
+
+(function startCaesar()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endCaesar ()
+  (line "right" "Umm, good job.")
+  (line "left" "... thanks.")
+)
+
+(register "start" levelStart)
+(register "end" levelEnd)

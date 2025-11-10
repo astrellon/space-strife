@@ -1,0 +1,18 @@
+#nullable enable
+
+namespace LysitheaVM
+{
+    public readonly struct NullValue : IValue
+    {
+        #region Fields
+        public static readonly NullValue Value = new();
+        public string TypeName => "null";
+        #endregion
+
+        #region Methods
+        public int CompareTo(IValue? other) => (other == null || other is NullValue) ? 0 : 1;
+        public override string ToString() => this.TypeName;
+        public string ToStringSerialise() => this.ToString();
+        #endregion
+    }
+}

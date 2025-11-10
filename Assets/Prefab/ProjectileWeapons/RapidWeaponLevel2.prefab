@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2216890796017108049
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 608667164451358278, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: m_Name
+      value: RapidWeaponLevel2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077189835278530204, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: Speed
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077189835278530204, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: Damage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077189835278530204, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: HitPrefab
+      value: 
+      objectReference: {fileID: 3590411994447055087, guid: cc44f768d953fb686b3116db687a13e9,
+        type: 3}
+    - target: {fileID: 1077189835278530204, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: MaxCooldown
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077189835278530204, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: GravityScale
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077189835278530204, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: FollowingObject
+      value: 
+      objectReference: {fileID: 4051042165782924131, guid: 06bf1fa8d10c3cf5591a019d2213a2a9,
+        type: 3}
+    - target: {fileID: 1077189835278530204, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: MuzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 4810728661485884177, guid: 23f60d06a28649b48bb496f31083916e,
+        type: 3}
+    - target: {fileID: 1077189835278530204, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: MuzzleCooldownTime
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688913756849425734, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688913756849425734, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688913756849425734, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688913756849425734, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688913756849425734, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688913756849425734, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688913756849425734, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688913756849425734, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688913756849425734, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688913756849425734, guid: df858683736d49d8a9a99e2390691f7c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: df858683736d49d8a9a99e2390691f7c, type: 3}

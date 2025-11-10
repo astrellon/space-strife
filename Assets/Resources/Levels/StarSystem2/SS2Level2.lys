@@ -1,0 +1,75 @@
+(function levelDescription()
+  (return ($ "Time to push " NAMES.aliens " back out of " NAMES.s2 "."))
+)
+
+(function levelStart(isFirstInit)
+  (if isFirstInit(
+    (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+    (actor "right" { "actor" S "emotion" "idle" })
+    (playBGM "dialogue1")
+
+    (line "left" "...")
+    (line "right" "...")
+
+    (startLevel)
+
+    ; (if (isChar A) (startAlice))
+    ; (if (isChar B) (startBob))
+    ; (if (isChar C) (startCaesar))
+  ) (
+    (startLevel)
+  ))
+
+  (playBGM "s2l2")
+  (startWaves)
+)
+
+(function levelEnd ()
+  (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+  (actor "right" { "actor" S "emotion" "idle" })
+
+  (if (isChar A) (endAlice))
+  (if (isChar B) (endBob))
+  (if (isChar C) (endCaesar))
+
+  (finishLevel)
+)
+
+(function startAlice()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endAlice ()
+  (line "left" "...")
+  (line "right" "...")
+)
+
+(function startBob()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endBob ()
+  (line "left" "...")
+  (line "right" "...")
+)
+
+(function startCaesar()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endCaesar ()
+  (line "right" "Umm, good job.")
+  (line "left" "... thanks.")
+)
+
+(register "start" levelStart)
+(register "end" levelEnd)

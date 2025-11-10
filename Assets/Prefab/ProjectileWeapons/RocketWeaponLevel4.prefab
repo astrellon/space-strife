@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2383098167446339604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6903123030129084660}
+  - component: {fileID: 7003131086237676556}
+  m_Layer: 0
+  m_Name: RocketWeaponLevel4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6903123030129084660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2383098167446339604}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7003131086237676556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2383098167446339604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920a08742597eb908a22aa881a3fbeef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Material: {fileID: 2100000, guid: 0ecd5d2408341fb50b7d538e204a07dc, type: 2}
+  Mesh: {fileID: 1988216149656743765, guid: 483c247e2569e5ddd8eee97d6b6172eb, type: 3}
+  FollowingObject: {fileID: 6873288378238834116, guid: b855ff5404eab3dd1842be7e4105d1bc,
+    type: 3}
+  MaxNumOfProjectiles: 512
+  MaxAge: 5
+  MaxAgeVariance: 0
+  Damage: 15
+  Speed: 35
+  SpeedVariance: 0
+  Cooldown: 0
+  MaxCooldown: 0.2
+  QueryRange: 14
+  HomingRange: 14
+  HomingAngle: 8
+  RandomFireRange: 2
+  SplitRandomRange: 10
+  GravityScale: 1.5
+  ProjectilePerFire: 1
+  ProjectilePerFireSplit: 0
+  ContinuousFire: 0
+  DidJustFire: 0
+  HitPrefab: {fileID: 4783066108646076621, guid: 29645c553321b6524b3805eb1e0927e8,
+    type: 3}
+  MissPrefab: {fileID: 4783066108646076621, guid: 29645c553321b6524b3805eb1e0927e8,
+    type: 3}
+  MuzzleFlashPrefab: {fileID: 3005772098027518654, guid: 6d827d8b7cc28a6ef8dd8ab1f0a9c324,
+    type: 3}
+  MuzzleCooldownTime: 0.2
+  WeaponType: 2
+  FireAtPoints: []
+  InputFire: 0

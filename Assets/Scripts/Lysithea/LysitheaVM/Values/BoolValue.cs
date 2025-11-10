@@ -1,0 +1,38 @@
+#nullable enable
+
+namespace LysitheaVM
+{
+    public readonly struct BoolValue : IValue
+    {
+        #region Fields
+        public readonly static BoolValue True = new(true);
+        public readonly static BoolValue False = new(false);
+
+        public readonly bool Value;
+
+        public string TypeName => "bool";
+        #endregion
+
+        #region Constructor
+        public BoolValue(bool value)
+        {
+            this.Value = value;
+        }
+        #endregion
+
+        #region Methods
+        public override string ToString() => this.Value ? "true" : "false";
+        public string ToStringSerialise() => this.ToString();
+
+        public int CompareTo(IValue? other)
+        {
+            if (other is BoolValue otherBoolValue)
+            {
+                return this.Value.CompareTo(otherBoolValue.Value);
+            }
+
+            return 1;
+        }
+        #endregion
+    }
+}

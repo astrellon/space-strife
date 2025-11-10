@@ -1,0 +1,250 @@
+(function levelDescription()
+  (return ($ "We've emerged on the other side of a portal that led us to an unknown system controlled by the " NAMES.aliens "."))
+)
+
+(define startTime 0)
+(function levelStart(isFirstInit)
+  (set startTime (getTime))
+
+  (if isFirstInit (
+    (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+    (actor "right" { "actor" S "emotion" "idle" })
+    (playBGM "dialogue1")
+
+    (line "left" "...")
+    (line "right" "...")
+  ))
+
+  (playBGM "S4L4")
+  (startLevel)
+  (startWaves)
+
+  (alienShip.follow player)
+
+  (print "Starting subLevel0")
+  (startSubLevel "subLevel0")
+)
+
+(function levelEnd ()
+  (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+  (actor "right" { "actor" S "emotion" "idle" })
+
+  (if (isChar A) (endAlice))
+  (if (isChar B) (endBob))
+  (if (isChar C) (endCaesar))
+
+  (finishLevel)
+)
+
+(function doOpenPortal (portal1 portal2)
+  (++ portalLevel)
+  (set portalOpen true)
+  (set playerThroughPortal false)
+  (set alienShipThroughPortal false)
+  (set canClosePortal false)
+  (set portalShowTimer 0)
+  (print "Next portal level")
+  (openPortals portal1 portal2)
+)
+
+(define portalLevel 0)
+(define portalOpen false)
+(define canClosePortal false)
+(define alienShipThroughPortal false)
+(define playerThroughPortal false)
+(define portalCloseCountdown 0)
+(define portalShowTimer 0)
+(define showAlienBits 3)
+(define startShowingPortals false)
+(define levelFinishCountdown 6)
+(define levelEnded false)
+
+(function levelUpdate ()
+  (if (&& (== alienShip.numberOfBits 0) alienShip.visible)
+    (handleNoBits)
+  )
+
+  (if (&& (== portalLevel 0) (== (getStat "shipsLeft") 0) (== alienShip.visible false)) (
+    (alienShip.show)
+  ))
+
+  ; (if (== alienShip.visible false) (
+  ;   (if (< showAlienTimer 0)
+  ;     (alienShip.show)
+  ;     (set showAlienTimer (- showAlienTimer DELTATIME))
+  ;   )
+  ; ))
+
+  (if (&& alienShip.visible (== alienShip.isAlive false)) (
+    (set levelFinishCountdown (- levelFinishCountdown DELTATIME))
+    (print "level ending " levelFinishCountdown)
+    (if (&& (== levelEnded false) (< levelFinishCountdown 0)) (
+      (set levelEnded true)
+      (endLevel)
+    ))
+  ))
+)
+
+(define prevStarSystemHide "")
+
+(function handleNoBits ()
+  (if startShowingPortals (
+    ; (print "Start showing portals " portalOpen " timer " portalShowTimer)
+    (if (== portalOpen false) (
+      (+= portalShowTimer DELTATIME)
+      ; (print "Portal closed, increasing timer " portalShowTimer ", level " portalLevel)
+    ))
+
+    (if (> portalShowTimer 5) (
+
+      (if (== portalLevel 0) (
+        (doOpenPortal "Portal1A" "Portal1B")
+        (alienShip.moveThroughPortal "Portal1A")
+        (showStarSystem "s1")
+      ))
+
+      (if (== portalLevel 1) (
+        (doOpenPortal "Portal2A" "Portal2B")
+        (alienShip.moveThroughPortal "Portal2A")
+        (showStarSystem "s2")
+        (levelBoundary "s4" false)
+      ))
+
+      (if (== portalLevel 2) (
+        (doOpenPortal "Portal3A" "Portal3B")
+        (alienShip.moveThroughPortal "Portal3A")
+        (hideStarSystem "s1")
+        (showStarSystem "s3")
+      ))
+
+      (if (== portalLevel 3) (
+        (doOpenPortal "Portal4A" "Portal4B")
+        (alienShip.moveThroughPortal "Portal4A")
+        (hideStarSystem "s2")
+        (showStarSystem "s4a")
+      ))
+
+      (if (== portalLevel 4) (
+        (doOpenPortal "Portal5A" "Portal1A")
+        (levelBoundary "s4" true)
+        (alienShip.moveThroughPortal "Portal5A")
+        (hideStarSystem "s3")
+      ))
+
+    ))
+
+    (if (&& portalOpen canClosePortal) (
+      (if (> portalCloseCountdown 0) (
+        (-= portalCloseCountdown DELTATIME)
+      ) ; else
+      (
+        (set portalOpen false)
+        (print "Closing portals")
+        (alienShip.follow player)
+        (set showAlienBits 3)
+
+        (set startShowingPortals false)
+        (closePortals)
+      ))
+    ))
+  ) ; else
+  (
+    ; (print "Show alien bits countdown " showAlienBits)
+    (if (> showAlienBits 0) (
+      (-= showAlienBits DELTATIME)
+    ) ;else
+    (
+      ; (alienShip.respawnBits (+ 3 portalLevel))
+
+      ; (if (> portalLevel 0) (
+      ;   (print "Enabled spawning free flying")
+      ;   (alienShip.setSpawningFreeFlying true)
+      ; ))
+      (set startShowingPortals true)
+    ))
+  ))
+)
+
+(function startAlice()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endAlice ()
+  (line "left" "...")
+  (line "right" "...")
+)
+
+(function startBob()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endBob ()
+  (line "left" "...")
+  (line "right" "...")
+)
+
+(function startCaesar()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endCaesar ()
+  (line "right" "Umm, good job.")
+  (line "left" "... thanks.")
+)
+
+(function onMovedThroughPortal (portableTarget)
+  (if portableTarget.isPlayer (
+    (set playerThroughPortal (! playerThroughPortal))
+    (print "Player through portal")
+  )
+  ( ; Else
+    (set alienShipThroughPortal (! alienShipThroughPortal))
+    (print "Alien ship through portal")
+  ))
+
+  (if (&& playerThroughPortal alienShipThroughPortal) (
+    (set canClosePortal true)
+    (set portalCloseCountdown 3)
+
+    (if (== portalLevel 1) (
+      (print "Starting subLevel1")
+      (startSubLevel "subLevel1")
+      (removeSubLevel "subLevel0")
+    ))
+
+    (if (== portalLevel 2) (
+      (print "Starting subLevel2")
+      (startSubLevel "subLevel2")
+      (removeSubLevel "subLevel1")
+    ))
+
+    (if (== portalLevel 3) (
+      (print "Starting subLevel3")
+      (startSubLevel "subLevel3")
+      (removeSubLevel "subLevel2")
+    ))
+
+    (if (== portalLevel 4) (
+      (print "Starting subLevel4")
+      (startSubLevel "subLevel4")
+      (removeSubLevel "subLevel3")
+    ))
+  ) ; else
+  (
+    (set canClosePortal false)
+  ))
+)
+
+(register "start" levelStart)
+(register "end" levelEnd)
+; (register "update" levelUpdate)
+(register "movedThroughPortal" onMovedThroughPortal)

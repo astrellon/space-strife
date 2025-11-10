@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5650549202563641294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1253376208763952177}
+  - component: {fileID: 8465517875218353305}
+  m_Layer: 0
+  m_Name: BoltWeaponLevel4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1253376208763952177
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5650549202563641294}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8465517875218353305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5650549202563641294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920a08742597eb908a22aa881a3fbeef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Material: {fileID: 2100000, guid: 8d34962c55b5341eaba8bb427802fb17, type: 2}
+  Mesh: {fileID: -3306268336857671336, guid: 6df807744d9e75e228f896757f1986a1, type: 3}
+  FollowingObject: {fileID: 0}
+  MaxNumOfProjectiles: 1024
+  MaxAge: 3.5
+  MaxAgeVariance: 0
+  Damage: 5
+  Speed: 24
+  SpeedVariance: 0
+  Cooldown: 0
+  MaxCooldown: 0.05
+  QueryRange: 2
+  HomingRange: 2
+  HomingAngle: 5
+  RandomFireRange: 2.25
+  SplitRandomRange: 8
+  ProjectilePerFire: 1
+  ProjectilePerFireSplit: 0
+  ContinuousFire: 0
+  HitPrefab: {fileID: 5779538546230720266, guid: c2dccea2394ee6e979cef3de07665a0f,
+    type: 3}
+  MissPrefab: {fileID: 3320890759050001789, guid: dfcf48813d22294f69ab183d60a89d9a,
+    type: 3}
+  MuzzleFlashPrefab: {fileID: 8784017947893886273, guid: 02d458b016f42809ab01ecbb89443d0e,
+    type: 3}
+  MuzzleCooldownTime: 0.05
+  WeaponType: 1
+  FireAtPoints: []
+  InputFire: 0

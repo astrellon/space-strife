@@ -1,0 +1,90 @@
+(function levelDescription()
+  (return ($ "The " NAMES.aliens " seem to have found a way to reverse time and are attacking every planet, you're going to need the " NAMES.ship " to counter this."))
+)
+
+(function levelStart(isFirstInit)
+  (if isFirstInit (
+    (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+    (actor "right" { "actor" S "emotion" "idle" })
+    (playBGM "dialogue1")
+
+    (if (isChar A) (startAlice))
+    (if (isChar B) (startBob))
+    (if (isChar C) (startCaesar))
+  ) (
+    (startLevel)
+  ))
+
+  (playBGM "s1l4")
+  (startWaves)
+)
+
+(function levelEnd ()
+  (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+  (actor "right" { "actor" S "emotion" "idle" })
+
+  (setFlag "lockedSS1" false)
+  (setFlag "defendedSS1")
+
+  (if (isChar A) (endAlice))
+  (if (isChar B) (endBob))
+  (if (isChar C) (endCaesar))
+
+  (finishLevel)
+)
+
+(function startAlice()
+  (line "right" "The " NAMES.aliens " have reversed time for all the planets in this star system and are attacking all simultaneously.")
+
+  (line "left" "Is the " NAMES.ship " ready to handle some tanks?")
+  (line "right" "The engineers have just finished setting up some hardpoints for connecting and controlling the tanks.")
+  (line "left" "Heck yea! The " NAMES.aliens " won't be expecting this!")
+
+  (actor "right" { "actor" C })
+  (line "right" "I have noticed that the " NAMES.aliens " implementation of our ability has had an odd side affect on their own timeline.")
+  (line "left" "And what does that mean?")
+  (line "right" "They appear to be moving slower than before, which thankfully will work to our advantage.")
+  (line "left" "So we'll have more time to defend each planet?")
+  (line "right" "Correct")
+  (line "left" "Then let's get started!")
+
+  (actor "right" { "actor" S })
+  (line "right" "We've got some resources to start you with, but there are currently no tanks attached to the " NAMES.ship ".")
+  (line "left" "I'm sure I'll figure it out!")
+
+  (startLevel)
+
+  (line "left" "Let's go!")
+)
+
+(function endAlice ()
+  (line "left" "...")
+  (line "right" "...")
+)
+
+(function startBob()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endBob ()
+  (line "left" "...")
+  (line "right" "...")
+)
+
+(function startCaesar()
+  (line "left" "...")
+  (line "right" "...")
+
+  (startLevel)
+)
+
+(function endCaesar ()
+  (line "right" "Umm, good job.")
+  (line "left" "... thanks.")
+)
+
+(register "start" levelStart)
+(register "end" levelEnd)

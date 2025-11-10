@@ -1,0 +1,2 @@
+CC 3.0
+Taken from: https://opengameart.org/content/ui-sound-effects-library
