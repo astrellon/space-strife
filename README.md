@@ -3,6 +3,12 @@ A tower defence like game where you defend your planet against waves of enemies 
 
 Built using Unity 2022.3.60f, targetting Windows, macOS, Linux, Android and WebGL.
 
+![Screenshot](SpaceStrife-Thumbnail.jpg)
+
+Current builds of the game are available on [itch.io](https://astrellon.itch.io/space-strife)
+
+Devlog series available on [YouTube](https://www.youtube.com/playlist?list=PLTf8ZRLo3EcM2af7AtxFiqQySnzFKEprt)
+
 ## Architecture
 The game world is setup as one continuous Unity scene and broken up into star systems which contain planets are other celestial objects. Star systems are revealed to the player as they progress. Each star system contains levels and are also revealed to the player as they progress. Each level is limited to the area around the planet where the level starts.
 
