@@ -463,6 +463,7 @@ namespace Orbits
             {
                 this.Camera.TransitionTo(levelContainer.FocusOn, 1.0f, Easing.Quadratic.Out);
                 this.Camera.ResetZoom();
+                this.Camera.PlayerZoomOffset = levelContainer.StartingZoom;
             }
             else if (this.CurrentLevel.Player != null)
             {
@@ -475,6 +476,7 @@ namespace Orbits
                 {
                     this.Camera.SetFocusOn(this.CurrentLevel.Player.Planet);
                 }
+                this.Camera.PlayerZoomOffset = levelContainer.StartingZoom;
             }
 
             this.OnLevelLoad?.Invoke(this.CurrentLevel);

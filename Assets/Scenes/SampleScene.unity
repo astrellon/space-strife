@@ -12830,6 +12830,7 @@ MonoBehaviour:
   FocusOn: {fileID: 0}
   FocusOnPreLevel: {fileID: 0}
   LevelHolderTarget: {fileID: 233389846}
+  StartingZoom: 0
   NamedTargets:
   - {fileID: 1368978614}
   - {fileID: 2142129430}
@@ -20043,6 +20044,7 @@ MonoBehaviour:
   FocusOn: {fileID: 1022511110}
   FocusOnPreLevel: {fileID: 0}
   LevelHolderTarget: {fileID: 2074306434}
+  StartingZoom: 0
   NamedTargets: []
   NeedsBoundary: 0
   ScriptText: {fileID: 2811297602134710623, guid: 6565aeff9bc514899bd5c6538bb32fe4,
@@ -21833,6 +21835,7 @@ MonoBehaviour:
   FocusOn: {fileID: 0}
   FocusOnPreLevel: {fileID: 0}
   LevelHolderTarget: {fileID: 654272197}
+  StartingZoom: 0
   NamedTargets: []
   NeedsBoundary: 1
   ScriptText: {fileID: 2811297602134710623, guid: 39702a6ddd2eb08af81886a321372613,
@@ -22840,6 +22843,7 @@ MonoBehaviour:
   FocusOn: {fileID: 0}
   FocusOnPreLevel: {fileID: 0}
   LevelHolderTarget: {fileID: 2080861455}
+  StartingZoom: 0
   NamedTargets: []
   NeedsBoundary: 0
   ScriptText: {fileID: 2811297602134710623, guid: 53b0c06866d3803329efc0291f9a6e17,
@@ -46640,6 +46644,7 @@ MonoBehaviour:
   FocusOn: {fileID: 169338033}
   FocusOnPreLevel: {fileID: 0}
   LevelHolderTarget: {fileID: 433733252}
+  StartingZoom: 0
   NamedTargets: []
   NeedsBoundary: 0
   ScriptText: {fileID: 2811297602134710623, guid: 024ecc1338e4c7869899e9e55ffa55bd,
@@ -58667,6 +58672,7 @@ MonoBehaviour:
   FocusOn: {fileID: 0}
   FocusOnPreLevel: {fileID: 0}
   LevelHolderTarget: {fileID: 1036075026}
+  StartingZoom: 0
   NamedTargets: []
   NeedsBoundary: 1
   ScriptText: {fileID: 2811297602134710623, guid: 1c4b7230f4c964221b5caf5abed6f0e7,
@@ -79536,6 +79542,7 @@ MonoBehaviour:
   FocusOn: {fileID: 0}
   FocusOnPreLevel: {fileID: 0}
   LevelHolderTarget: {fileID: 471174701}
+  StartingZoom: 0
   NamedTargets: []
   NeedsBoundary: 0
   ScriptText: {fileID: 2811297602134710623, guid: 73507039164319e57867d1dc7fa4c5fc,
@@ -79986,6 +79993,7 @@ MonoBehaviour:
   FocusOn: {fileID: 0}
   FocusOnPreLevel: {fileID: 0}
   LevelHolderTarget: {fileID: 1611395023}
+  StartingZoom: 25
   NamedTargets: []
   NeedsBoundary: 0
   ScriptText: {fileID: 2811297602134710623, guid: fd264070f6d5749e8b30e403871a907b,
@@ -80537,6 +80545,7 @@ MonoBehaviour:
   FocusOn: {fileID: 0}
   FocusOnPreLevel: {fileID: 0}
   LevelHolderTarget: {fileID: 371699551}
+  StartingZoom: 0
   NamedTargets: []
   NeedsBoundary: 0
   ScriptText: {fileID: 2811297602134710623, guid: 43836a65650676c2aa02aa867eddaeab,

@@ -69,6 +69,23 @@ namespace Orbits
                 this.mouseDown = false;
             }
 
+            if (GameManager.Instance.CurrentLevel != null)
+            {
+                var activities = GameManager.Instance.CurrentLevel.ActiveAbilities;
+                if (Input.GetKeyDown(KeyCode.Alpha1) && activities.Count > 0)
+                {
+                    activities[0].Execute(GameManager.Instance.CurrentLevel);
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha2) && activities.Count > 1)
+                {
+                    activities[1].Execute(GameManager.Instance.CurrentLevel);
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha3) && activities.Count > 2)
+                {
+                    activities[2].Execute(GameManager.Instance.CurrentLevel);
+                }
+            }
+
             for (var i = 0; i < this.Tanks.Count; i++)
             {
                 var tank = this.Tanks[i];

@@ -37,6 +37,7 @@ namespace Orbits
         public GameObject? FocusOn;
         public GameObject? FocusOnPreLevel;
         public Transform? LevelHolderTarget;
+        public float StartingZoom = 0.0f;
         public List<Transform> NamedTargets = new();
         public bool NeedsBoundary;
 
