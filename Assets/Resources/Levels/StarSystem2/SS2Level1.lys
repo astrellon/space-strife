@@ -1,7 +1,7 @@
 (function levelDescription()
   (if FIRSTTIME
     (return ($ "The place of the secretive " NAMES.chronodome " laboratories. Why would the " NAMES.aliens " reappear here first."))
-    (return ($ "The place of the secretive " NAMES.chronodome " laboratories. Seemingly the research being done here was the reason for the " NAMES.alien " first attach."))
+    (return ($ "The place of the secretive " NAMES.chronodome " laboratories. Seemingly the research being done here was the reason for the " NAMES.aliens " first attach."))
   )
 )
 
@@ -48,8 +48,6 @@
       ((isChar C) (endCaesar))
     )
   ))
-
-  (setFlag "levelRepeat")
 
   (finishLevel)
 )
@@ -144,7 +142,8 @@
   (actor "left" { "actor" B "emotion" "idle" })
   (line "left" "Seems like " C.name " likes hanging out in strange places, an usual star system this looks like.")
   (line "right" "Apparently the combination of the Wolf-Rayet star and Stellar sized Black Holes was perfect for their research.")
-  (line "right" "Unfortunately those same conditions affect long range sensors, which prevented us from knowing what had happened here and probably why " C.name " was caught off guard.")
+  (line "right" "Unfortunately those same conditions affect long range sensors.")
+  (line "right" "That prevented us from knowing what had happened here and probably why " C.name " was caught off guard.")
   (line "right" "Long ranged probes could see that the facility where " C.name " was posted has been destroyed.")
   (line "left" "Sounds like " C.name " knew the risks, but it's still hard to accept.")
   (line "right" "Our hope is that we may recover some of work they were working on.")
