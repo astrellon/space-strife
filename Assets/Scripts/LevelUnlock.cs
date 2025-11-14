@@ -97,7 +97,7 @@ namespace Orbits
             }
             else if (this.Type == UnlockType.LevelRepeat)
             {
-                PlayerState.Instance.SetGameFlag("levelRepeat", true);
+                PlayerState.Instance.SetGameFlag(PlayerState.LevelRepeatKey, true);
                 message = Utils.ColouredText(UIManager.Instance.LevelColour, "You can repeat levels now!");
             }
 

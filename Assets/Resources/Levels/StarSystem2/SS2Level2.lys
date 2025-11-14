@@ -1,21 +1,17 @@
 (function levelDescription()
-  (return ($ "Time to push " NAMES.aliens " back out of " NAMES.s2 "."))
+  (return ($ "Time to push " NAMES.aliens " back out of " NAMES.s2 "!"))
 )
 
 (function levelStart(isFirstInit)
   (if isFirstInit(
-    (actor "left" { "actor" MAINCHAR "emotion" "idle" })
-    (actor "right" { "actor" S "emotion" "idle" })
     (playBGM "dialogue1")
 
-    (line "left" "...")
-    (line "right" "...")
+    (switch
+      ((&& (isChar A) (isChar B)) (startAliceBob))
+      ((&& (isChar B) (isChar C)) (startBobCaesar))
+      ((&& (isChar A) (isChar C)) (startAliceCaesar))
+    )
 
-    (startLevel)
-
-    ; (if (isChar A) (startAlice))
-    ; (if (isChar B) (startBob))
-    ; (if (isChar C) (startCaesar))
   ) (
     (startLevel)
   ))
@@ -25,50 +21,115 @@
 )
 
 (function levelEnd ()
-  (actor "left" { "actor" MAINCHAR "emotion" "idle" })
-  (actor "right" { "actor" S "emotion" "idle" })
-
-  (if (isChar A) (endAlice))
-  (if (isChar B) (endBob))
-  (if (isChar C) (endCaesar))
+  (switch
+    ((&& (isChar A) (isChar B)) (endAliceBob))
+    ((&& (isChar B) (isChar C)) (endBobCaesar))
+    ((&& (isChar A) (isChar C)) (endAliceCaesar))
+  )
 
   (finishLevel)
 )
 
-(function startAlice()
-  (line "left" "...")
-  (line "right" "...")
+(function asksForTanks()
+  (line "right" "Since this is your first joint mission I've left it up to the both of you to determine your fleet.")
 
   (startLevel)
+  (line "right" "Make sure you get something up quick though, they're not going to wait for you.")
 )
 
-(function endAlice ()
-  (line "left" "...")
-  (line "right" "...")
+(function startAliceBob()
+  (actor "left" { "actor" A "emotion" "idle" })
+  (actor "right" { "actor" B "emotion" "idle" })
+  (line "left" "Hey " B.name " I'm fired up! Think you can keep up?")
+  (line "right" "Don't go thinking that you're the only one who wants them see their mistake in attacking our friend.")
+  (line "left" "Then lets go!")
+
+  (actor "right" { "actor" S "emotion" "idle" })
+  (line "right" "I'm glad that you're ready to go, but don't go losing focus.")
+  (line "left" "What do you mean I'm not focused?")
+  (line "right" C.name " is safe now and we secured the tech from the " NAMES.chronodome ". So your job is just to clear out the " NAMES.aliens ".")
+
+  (actor "left" { "actor" B "emotion" "idle" })
+  (line "left" "And that's exactly what we're going to do.")
+  (line "left" "Now where are our tanks?")
+
+  (asksForTanks)
 )
 
-(function startBob()
-  (line "left" "...")
-  (line "right" "...")
+(function startBobCaesar()
+  (actor "left" { "actor" B "emotion" "idle" })
+  (actor "right" { "actor" C "emotion" "idle" })
+  (line "left" "Hey " C.name " how are you holding up?")
+  (line "right" "Using the " NAMES.chronodome " while they were attacking was rather stressful, however given that we made it out alive I'm doing much better now.")
+  (line "left" "Good! Then let's get pumped to get those " NAMES.aliens " out of " NAMES.s2 ".")
+  (line "right" "Yes I think they've done enough damage.")
 
-  (startLevel)
+  (actor "right" { "actor" S "emotion" "idle" })
+  (line "left" "Now where are our tanks?")
+
+  (asksForTanks)
 )
 
-(function endBob ()
-  (line "left" "...")
-  (line "right" "...")
+(function startAliceCaesar()
+  (actor "left" { "actor" A "emotion" "idle" })
+  (actor "right" { "actor" C "emotion" "idle" })
+  (line "left" "I'm so glad that you're okay " C.name "! I was scared to death that something had happened!")
+  (line "right" "I appreciate your concern, but now that we've made our temporal escape I'm feeling much better.")
+  (line "left" "Have you really had time to process it though? You came through that portal under attack only to have to fight more on this side.")
+  (line "right" "It was a bit stressful dealing with that, however seeing all of you waiting for me did put me at ease.")
+  (line "left" "Of course " C.name "! Alright well lets kick these " NAMES.aliens " out of " NAMES.s2 "!")
+
+  (actor "right" { "actor" S "emotion" "idle" })
+  (line "left" "Hey so where are our tanks?")
+
+  (asksForTanks)
 )
 
-(function startCaesar()
-  (line "left" "...")
-  (line "right" "...")
+(function endAliceBob()
+  (actor "left" { "actor" A "emotion" "idle" })
+  (actor "right" { "actor" B "emotion" "idle" })
+  (line "left" "Aww yea! They didn't stand a chance against both of us!")
+  (line "right" "Hee haw! That felt good to show them what they're really up against!")
 
-  (startLevel)
+  (actor "right" { "actor" S "emotion" "idle" })
+  (line "right" "Good work both of you!")
+
+  (line "left" "What do we do now?")
+  (line "right" "We have some intel about where the " NAMES.aliens " might be coming from.")
+  (line "left" "Then let's go!")
+
 )
 
-(function endCaesar ()
-  (line "right" "Umm, good job.")
-  (line "left" "... thanks.")
+(function endBobCaesar()
+  (actor "left" { "actor" B "emotion" "idle" })
+  (actor "right" { "actor" C "emotion" "idle" })
+  (line "left" "Hee haw! Yea they had no hope compared to the two of us.")
+  (line "right" "Indeed that almost felt a bit too easy.")
+  (line "left" "I suppose you might be right. But I'm not look upset about an easy win.")
+
+  (actor "left" { "actor" C "emotion" "idle" })
+  (actor "right" { "actor" S "emotion" "idle" })
+  (line "right" "Good work both of you!")
+
+  (line "left" "So what's next?")
+  (line "right" "We have some intel about where the " NAMES.aliens " might be coming from.")
+  (line "left" "Then we best investigate.")
+)
+
+(function endAliceCaesar()
+  (actor "left" { "actor" A "emotion" "idle" })
+  (actor "right" { "actor" C "emotion" "idle" })
+  (line "left" "We did it " C.name "! That felt good to make them pay for hurting you!")
+  (line "right" "Thank you " A.name " I do appreciate that. But did that fight feel a bit too easy?")
+  (line "left" "Don't sell our strength short! We whooped them!")
+  (line "right" "I suppose we did.")
+
+  (actor "right" { "actor" S "emotion" "idle" })
+  (line "right" "Good work both of you!")
+
+  (line "left" "What do we do now?")
+  (line "right" "We have some intel about where the " NAMES.aliens " might be coming from.")
+  (line "left" "Then let's go!")
 )
 
 (register "start" levelStart)

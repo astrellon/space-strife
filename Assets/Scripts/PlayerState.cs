@@ -20,6 +20,8 @@ namespace Orbits
     public class PlayerState : MonoBehaviour
     {
         #region Fields
+        public const string LevelRepeatKey = "levelRepeat";
+
         public static PlayerState Instance;
         public static readonly IReadOnlyDictionary<GameCharacterId, int> EmptyGameCharacterPlays = new Dictionary<GameCharacterId, int>();
 
@@ -135,6 +137,9 @@ namespace Orbits
                 }
             }
 
+            this.SetGameFlag(LevelRepeatKey, true);
+            this.gameFlags = new HashSet<string>(this.currentLevelGameFlags);
+
             this.UnlockCharacter(GameCharacterId.Bob);
             this.UnlockCharacter(GameCharacterId.Caesar);
 
@@ -154,6 +159,8 @@ namespace Orbits
             this.UnlockTankUpgrade(WeaponType.Laser, "Upgrade 2");
             this.UnlockTankUpgrade(WeaponType.RapidLaser, "Upgrade 1");
             this.UnlockTankUpgrade(WeaponType.RapidLaser, "Upgrade 2");
+
+            PlayerStateStore.Save(this);
         }
 
         public void ResetPlayer()
@@ -188,17 +195,7 @@ namespace Orbits
 
             this.SetGameFlag("needShowUpgradeTutorial", true);
 
-            // startingStarSystem = new StarSystemId("s1");
-            // startingLevel = new LevelId("l4");
-            // this.UnlockLevel(startingStarSystem, startingLevel, saveUpdate: false);
-
-            // startingStarSystem = new StarSystemId("s4");
-            // startingLevel = new LevelId("l1");
-            // this.UnlockLevel(startingStarSystem, startingLevel, saveUpdate: false);
-
             this.UnlockCharacter(GameCharacterId.Alice);
-            // this.UnlockCharacter(GameCharacterId.Bob);
-            // this.UnlockCharacter(GameCharacterId.Caesar);
             this.UnlockTank(WeaponType.Bolt, calculateWeaponLevels: false);
         }
 
@@ -525,7 +522,7 @@ namespace Orbits
                 this.currentLevelGameFlags.Remove(key);
             }
 
-            if (key == "levelRepeat")
+            if (key == LevelRepeatKey)
             {
                 this.LevelRepeatUnlocked = value;
             }
@@ -534,7 +531,7 @@ namespace Orbits
         public void SetGameFlags(HashSet<string> flags)
         {
             this.gameFlags = flags;
-            this.LevelRepeatUnlocked = flags.Contains("levelRepeat");
+            this.LevelRepeatUnlocked = flags.Contains(LevelRepeatKey);
         }
         #endregion
     }
