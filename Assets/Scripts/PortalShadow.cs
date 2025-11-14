@@ -187,19 +187,29 @@ namespace Orbits
 
         public void UpdateRenderTexture(Vector2Int renderSize)
         {
-            Debug.Log($"Resized portal shadow to: {renderSize.x}x{renderSize.y}");
+            var didResize = false;
 
-            if (this.RenderTexture.width != Screen.width &&
-                this.RenderTexture.height != Screen.height)
+            if (this.RenderTexture.width != renderSize.x &&
+                this.RenderTexture.height != renderSize.y)
             {
                 this.RenderTexture.Release();
-                this.RenderTexture = new(Screen.width, Screen.height, this.RenderTexture.graphicsFormat);
+                this.RenderTexture = new(renderSize.x, renderSize.y, this.RenderTexture.graphicsFormat);
+                didResize = true;
             }
 
-            this.RenderTextureMask.Release();
-            this.RenderTextureMask = new(renderSize.x, renderSize.y, this.RenderTextureMask.graphicsFormat);
+            if (this.RenderTextureMask.width != renderSize.x &&
+                this.RenderTextureMask.height != renderSize.y)
+            {
+                this.RenderTextureMask.Release();
+                this.RenderTextureMask = new(renderSize.x, renderSize.y, this.RenderTextureMask.graphicsFormat);
+                didResize = true;
+            }
 
-            this.OnRenderTextureChange?.Invoke(this);
+            if (didResize)
+            {
+                Debug.Log($"Resized portal shadow to: {renderSize.x}x{renderSize.y}");
+                this.OnRenderTextureChange?.Invoke(this);
+            }
         }
 
         private void UpdateVertices()
