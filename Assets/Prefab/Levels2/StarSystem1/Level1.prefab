@@ -54,6 +54,7 @@ MonoBehaviour:
   Waves: []
   LevelName: Blue Sands
   LevelId: l1
+  BGMAudioId: 
   TotalShips: 0
   ShipsLeft: 0
   Money: 0
@@ -65,6 +66,7 @@ MonoBehaviour:
   PartOfStarSystem: {fileID: 0}
   Player: {fileID: 3147499751630156769}
   ZoomForEquipment: 10
+  Container: {fileID: 0}
   FirstTimeCharacterIds:
   - A
   StartingTank: 1
@@ -86,6 +88,7 @@ MonoBehaviour:
   - {fileID: 1934557946410990536}
   WeaponLevelsBoosted: 0
   NeedUpdateGravitySources: 0
+  ScriptControlsLevelEnd: 0
 --- !u!1 &1760056108732245188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,6 +1192,7 @@ MonoBehaviour:
   PlanetRadius: 2.5
   Planet: {fileID: 0}
   TankContainer: {fileID: 3935573029607323227}
+  ZoomLevels: {x: -30, y: 30}
 --- !u!114 &3935573029607323227
 MonoBehaviour:
   m_ObjectHideFlags: 0

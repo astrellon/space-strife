@@ -164,7 +164,7 @@ MonoBehaviour:
   ShipExplodePrefab: {fileID: 506950616457108093, guid: f5635a88a97b17d27886f500f10b70d8,
     type: 3}
   Size: 0.7
-  DestroyDelay: 0.9833333
+  DestroyDelay: 0.1
   Flags: 7
   TargetType: 4
   Renderers: []
