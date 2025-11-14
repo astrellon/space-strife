@@ -3513,6 +3513,12 @@ MonoBehaviour:
     WeaponUpgradeId: 
     CharacterId: 
     WeaponType: 0
+  - Type: 6
+    LevelId: 
+    StarSystemId: 
+    WeaponUpgradeId: 
+    CharacterId: 
+    WeaponType: 0
   LevelFullHealthUnlocks:
   - Type: 3
     LevelId: 

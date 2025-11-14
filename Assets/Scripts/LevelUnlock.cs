@@ -15,14 +15,14 @@ namespace Orbits
             this.Message = message;
             this.CameraToStarSystem = cameraToStarSystem;
         }
-    };
+    }
 
     [Serializable]
     public struct LevelUnlock
     {
         public enum UnlockType
         {
-            Unknown, Level, UnlockWeapon, UpgradeWeapon, FinishGame, UnlockCharacter
+            Unknown, Level, UnlockWeapon, UpgradeWeapon, FinishGame, UnlockCharacter, LevelRepeat
         }
 
         #region Fields
@@ -94,6 +94,11 @@ namespace Orbits
                         message = $"New character {character.NameWithColour}!";
                     }
                 }
+            }
+            else if (this.Type == UnlockType.LevelRepeat)
+            {
+                PlayerState.Instance.SetGameFlag("levelRepeat", true);
+                message = Utils.ColouredText(UIManager.Instance.LevelColour, "You can repeat levels now!");
             }
 
             return new LevelUnlockResult(message, cameraToStarSystem);

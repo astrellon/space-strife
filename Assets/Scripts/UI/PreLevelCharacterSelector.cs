@@ -38,8 +38,8 @@ namespace Orbits
         {
             this.HideCharacters();
 
-            if (GameManager.Instance.IsFirstTimePlayingCurrentLevel(out _, out var level) &&
-                level.LevelPrefab != null && level.LevelPrefab.FirstTimeCharacterIds.Count >= level.LevelPrefab.NumCharacters)
+            var levelInfo = PlayerStateLevelInfo.CreateFromCurrent(out var level);
+            if (!levelInfo.CanStartLevel || (levelInfo.FirstTimePlaying && level != null && level.FirstTimeCharacterIds.Count >= level.NumCharacters))
             {
                 return;
             }

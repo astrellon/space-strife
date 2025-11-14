@@ -14,35 +14,21 @@ namespace Orbits
         #region Unity Methods
         private void OnEnable()
         {
-            var canStartLevel = this.CanShowStartLevel();
+            var levelInfo = this.GetPlayerStateLevelInfo();
             foreach (var obj in this.EnabledForStartLevel)
             {
-                obj.SetActive(canStartLevel);
+                obj.SetActive(levelInfo.CanStartLevel);
             }
         }
         #endregion
 
         #region Methods
-        public bool CanShowStartLevel()
+        private PlayerStateLevelInfo GetPlayerStateLevelInfo()
         {
             var starSystem = UIManager.Instance.CurrentStarSystem;
             var level = UIManager.Instance.CurrentLevelSelected.LevelPrefab;
-            if (starSystem == null || level == null)
-            {
-                return false;
-            }
 
-            if (!PlayerState.Instance.TryGetLevelTotal(starSystem.Id, level.Id, out _))
-            {
-                return true;
-            }
-
-#if UNITY_EDITOR
-            Debug.LogError($"REMEMBER TO REMOVE");
-            return true;
-#else
-            return PlayerState.Instance.LevelRepeatUnlocked;
-#endif
+            return PlayerStateLevelInfo.CreateFrom(starSystem, level, PlayerState.Instance);
         }
         #endregion
     }

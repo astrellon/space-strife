@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using TMPro;
 
@@ -14,6 +13,10 @@ namespace Orbits
         public UIForWorldTarget ForWorldTarget;
         public TMP_Text NameText;
         public TMP_Text DescriptionText;
+        public TMP_Text LevelUnlockHeaderText;
+        public Transform LevelUnlockItemsParent;
+        public Transform LevelUnlockParent;
+        public UILevelUnlock LevelUnlockPrefab;
         public float SmallFontSize = 20.0f;
         public float LargeFontSize = 32.0f;
         private UILevelSelectContainer uiParent;
@@ -24,6 +27,7 @@ namespace Orbits
         {
             this.ForWorldTarget.OnBeforeDisable += this.OnBeforeDisable;
             this.DescriptionText.gameObject.SetActive(false);
+            this.LevelUnlockParent.gameObject.SetActive(false);
         }
 
         private void Update()
@@ -36,14 +40,83 @@ namespace Orbits
                     this.DescriptionText.text = this.LevelContainer.GetDescription();
                     this.DescriptionText.gameObject.SetActive(true);
                 }
+                if (!this.LevelUnlockParent.gameObject.activeSelf)
+                {
+                    this.SetupUnlocks();
+                    this.LevelUnlockParent.gameObject.SetActive(true);
+                }
 
                 var scale = Mathf.Clamp01((this.ForWorldTarget.LerpToUIPosition - 0.5f) / 0.5f);
-                this.DescriptionText.transform.localScale = Vector3.one * Easing.Back.Out(scale);
+                var easedScale = Vector3.one * Easing.Back.Out(scale);
+                this.DescriptionText.transform.localScale = easedScale;
+                this.LevelUnlockParent.transform.localScale = easedScale;
+            }
+            else
+            {
+                if (this.DescriptionText.gameObject.activeSelf)
+                {
+                    this.DescriptionText.gameObject.SetActive(false);
+                }
+                if (this.LevelUnlockParent.gameObject.activeSelf)
+                {
+                    this.LevelUnlockParent.gameObject.SetActive(false);
+                }
             }
         }
         #endregion
 
         #region Methods
+        private void SetupUnlocks()
+        {
+            Utils.RemoveAllChildren(this.LevelUnlockItemsParent);
+
+            var levelInfo = this.GetPlayerStateLevelInfo();
+            if (PlayerState.Instance.LevelRepeatUnlocked)
+            {
+                if (levelInfo.HasFinishedLevelMaxHealth)
+                {
+                    this.LevelUnlockHeaderText.text = "Upgrades Unlocked:";
+                }
+                else
+                {
+                    this.LevelUnlockHeaderText.text = "Unlock With Full Health:";
+                }
+
+                var level = UIManager.Instance.CurrentLevelSelected.LevelPrefab;
+                if (level != null)
+                {
+                    foreach (var unlock in level.LevelFullHealthUnlocks)
+                    {
+                        var create = Instantiate(this.LevelUnlockPrefab);
+                        create.transform.SetParent(this.LevelUnlockItemsParent, false);
+                        create.transform.localScale = Vector3.one;
+                        create.Data = unlock;
+                    }
+                }
+            }
+            else
+            {
+                if (levelInfo.HasFinishedLevelBefore)
+                {
+                    this.LevelUnlockHeaderText.text = "Planet Defended";
+                }
+                else
+                {
+                    this.LevelUnlockHeaderText.text = "";
+                }
+
+                this.LevelUnlockParent.gameObject.SetActive(false);
+            }
+        }
+
+        private PlayerStateLevelInfo GetPlayerStateLevelInfo()
+        {
+            var starSystem = UIManager.Instance.CurrentStarSystem;
+            var level = UIManager.Instance.CurrentLevelSelected.LevelPrefab;
+
+            return PlayerStateLevelInfo.CreateFrom(starSystem, level, PlayerState.Instance);
+        }
+
         private void OnBeforeDisable()
         {
             UIManager.Instance.OnStateChange -= this.OnStateChange;

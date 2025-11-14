@@ -330,6 +330,16 @@ namespace Orbits
             return false;
         }
 
+        public bool HasTankUpgrade(WeaponType weaponType, string upgradeId)
+        {
+            if (!this.TankUpgrades.TryGetValue(weaponType, out var list))
+            {
+                return false;
+            }
+
+            return list.Contains(upgradeId);
+        }
+
         public bool UnlockTankUpgrade(WeaponType weaponType, string upgradeId, bool calculateWeaponLevels = true)
         {
             if (!this.TankUpgrades.TryGetValue(weaponType, out var list))
@@ -515,10 +525,10 @@ namespace Orbits
                 this.currentLevelGameFlags.Remove(key);
             }
 
-            // if (key == "levelRepeat")
-            // {
-            //     this.LevelRepeatUnlocked = value;
-            // }
+            if (key == "levelRepeat")
+            {
+                this.LevelRepeatUnlocked = value;
+            }
         }
 
         public void SetGameFlags(HashSet<string> flags)

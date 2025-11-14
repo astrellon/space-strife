@@ -533,6 +533,15 @@ namespace Orbits
             }
         }
 
+        public void ForceFinishCurrentLevelTakeDamage()
+        {
+            if (this.CurrentLevel != null)
+            {
+                this.CurrentLevel.DamagePlanet(5);
+                this.ForceFinishCurrentLevel();
+            }
+        }
+
         public void ForceFinishCurrentLevel()
         {
             if (this.CurrentLevel != null)
