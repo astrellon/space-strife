@@ -26,6 +26,7 @@
 (function levelEnd ()
   (actor "left" { "actor" C "emotion" "idle" })
   (actor "right" { "actor" S "emotion" "idle" })
+  (playBGM "win3")
 
   (line "left" "We are safely through the wormhole.")
   (line "right" "And where are we exactly?")

@@ -21,6 +21,7 @@
 )
 
 (function levelEnd ()
+  (playBGM "win2")
   (switch
     ((&& (isChar A) (isChar B)) (endAliceBob))
     ((&& (isChar B) (isChar C)) (endBobCaesar))

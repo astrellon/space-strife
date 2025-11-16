@@ -23,6 +23,8 @@
   (actor "left" { "actor" MAINCHAR "emotion" "idle" })
   (actor "right" { "actor" S "emotion" "idle" })
 
+  (playBGM "win1")
+
   (if (isChar A) (endAlice))
   (if (isChar B) (endBob))
   (if (isChar C) (endCaesar))

@@ -6,7 +6,6 @@
 )
 
 (function levelStart(isFirstInit)
-
   (if isFirstInit(
     (actor "right" { "actor" S "emotion" "idle" })
     (playBGM "dialogue2")
@@ -34,6 +33,7 @@
 
 (function levelEnd ()
   (actor "right" { "actor" S "emotion" "idle" })
+  (playBGM "win2")
 
   (if FIRSTTIME
   (

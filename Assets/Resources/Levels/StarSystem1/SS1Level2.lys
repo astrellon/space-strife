@@ -27,6 +27,7 @@
 
 (function levelEnd ()
   (actor "left" { "actor" MAINCHAR "emotion" "idle" })
+  (playBGM "win1")
 
   (define endThundersRestLightning (getFlag "thundersRestLightning"))
 

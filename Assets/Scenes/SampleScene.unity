@@ -57935,7 +57935,46 @@ MonoBehaviour:
         LoopEnd: 0
         MaxVolume: 0.5
         IgnoreHighpass: 1
-    - Key: Win
+    - Key: Win1
+      Value:
+        Reference:
+          m_AssetGUID: 5f24854a96c594c508ca4db50232b891
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 1
+    - Key: Win2
+      Value:
+        Reference:
+          m_AssetGUID: 5f24854a96c594c508ca4db50232b891
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 1
+    - Key: Win3
+      Value:
+        Reference:
+          m_AssetGUID: de1b88f04f346fa418960d48301851ee
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 1
+    - Key: Win4
       Value:
         Reference:
           m_AssetGUID: 5f51dbc1667c1466b976ed26e8215719

@@ -22,6 +22,7 @@
 (function levelEnd ()
   (actor "left" { "actor" MAINCHAR "emotion" "idle" })
   (actor "right" { "actor" S "emotion" "idle" })
+  (playBGM "win3")
 
   (setFlag "lockedSS1" false)
   (setFlag "defendedSS1")

@@ -28,6 +28,7 @@
 (function levelEnd ()
   (actor "left" { "actor" MAINCHAR "emotion" "idle" })
   (actor "right" { "actor" S "emotion" "idle" })
+  (playBGM "win4")
 
   (if (isChar A) (endAlice))
   (if (isChar B) (endBob))

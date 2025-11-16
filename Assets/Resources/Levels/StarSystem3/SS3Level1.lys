@@ -47,6 +47,7 @@
 (function levelEnd ()
   (actor "left" { "actor" A "emotion" "idle" })
   (actor "right" { "actor" S "emotion" "idle" })
+  (playBGM "win3")
 
   (if (> ABILITIES.time.timesTriggered 0) (
     (unlock { "type" "level" "starSystem" "s1" "level" "l4" })
