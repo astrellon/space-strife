@@ -6,7 +6,7 @@
   (if isFirstInit (
     (actor "left" { "actor" MAINCHAR "emotion" "idle" })
     (actor "right" { "actor" S "emotion" "idle" })
-    (playBGM "dialogue1")
+    (playBGM "dialogueTense")
 
     (if (isChar A) (startAlice))
     (if (isChar B) (startBob))

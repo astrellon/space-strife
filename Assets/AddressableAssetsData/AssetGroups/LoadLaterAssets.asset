@@ -17,6 +17,21 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 179266fb59df528a5850bce9bf468d4d
   m_SerializeEntries:
+  - m_GUID: 009c98f82696316dab4438e78409742f
+    m_Address: Assets/Audio/Soundimage/A Future in Space.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 02341b230ff34c5669601e3b28af59b7
+    m_Address: Assets/Audio/Soundimage/Grunge Bot_Looping.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1afe2684ca0253ec9a3619be467d3c43
+    m_Address: Assets/Audio/Soundimage/Restricted Zone_Looping.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1cf3e44807b4440008ee44a347d5d637
     m_Address: Assets/Audio/Soundimage/Hope in Dystopia.ogg
     m_ReadOnly: 0
@@ -27,13 +42,48 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4042e1ff601753c82bbdd5f036700d20
+    m_Address: Assets/Audio/Soundimage/The Toy Factory.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 429a8fd2717ff9bca9dd8b73dc546d4a
     m_Address: Assets/Audio/Soundimage/When Machines Dream_Looping.ogg
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4504c169b07375cef9ff3beb08db5ab4
+    m_Address: Assets/Audio/Soundimage/Ominous Sci-Fi Menu.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f51dbc1667c1466b976ed26e8215719
+    m_Address: Assets/Audio/Soundimage/4.2 Light Years.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 715e0637ea296befda3b8d0624fe645a
+    m_Address: Assets/Audio/Soundimage/World of Automatons_Looping_v001.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9926f6e69da36efb3915098fdc4210ff
+    m_Address: Assets/Audio/Soundimage/More Mech Monsters.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4f1d3e5318b495a097751c92af26ee4
+    m_Address: Assets/Audio/Soundimage/Sci-Fi Trance 3.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: af96f8c43380c9877ba5d3980fe93df9
     m_Address: Assets/Audio/Soundimage/Winter in 5th Sector.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cdc20bab17075d1eaae198e3246fca3b
+    m_Address: Assets/Audio/Soundimage/Panoramic Dystopia_Looping.ogg
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

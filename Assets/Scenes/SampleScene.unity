@@ -46262,8 +46262,8 @@ MonoBehaviour:
   m_text: "<color=#FFEEB3>Made by</color>: Alan Lawrey\n<color=#FFEEB3>KNN Nearest</color>:
     Arthur Brussee\n<color=#FFEEB3>Joystick Pack</color>: Fenerax Studios\n<color=#FFEEB3>Shader
     Noise</color>: keijiro\n<color=#FFEEB3>Character Portraits</color>: CaptainSkeleto
-    \n    modified by Alan Lawrey\n<color=#FFEEB3>Music</color>: Eric Matyas\n   
-    www.soundimage.org\nNeuropol Font"
+    \n    modified by Alan Lawrey\n<color=#FFEEB3>Music</color>: Eric Matyas\n www.soundimage.org\nNeuropol
+    Font"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42933db18afb678dd8ad3bc0ec26c212, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 7a475b7df75d5fc8b81c61fda386ea32, type: 2}
@@ -57779,6 +57779,84 @@ MonoBehaviour:
         LoopEnd: 0
         MaxVolume: 0.5
         IgnoreHighpass: 0
+    - Key: S1L3
+      Value:
+        Reference:
+          m_AssetGUID: cdc20bab17075d1eaae198e3246fca3b
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 0
+    - Key: S1L4
+      Value:
+        Reference:
+          m_AssetGUID: 1afe2684ca0253ec9a3619be467d3c43
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 0
+    - Key: S2L1
+      Value:
+        Reference:
+          m_AssetGUID: 02341b230ff34c5669601e3b28af59b7
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 0
+    - Key: S2L2
+      Value:
+        Reference:
+          m_AssetGUID: 4042e1ff601753c82bbdd5f036700d20
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 0
+    - Key: S2L3
+      Value:
+        Reference:
+          m_AssetGUID: 9926f6e69da36efb3915098fdc4210ff
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 0
+    - Key: S3L1
+      Value:
+        Reference:
+          m_AssetGUID: a4f1d3e5318b495a097751c92af26ee4
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 0
     - Key: S4L1
       Value:
         Reference:
@@ -57795,7 +57873,72 @@ MonoBehaviour:
     - Key: Dialogue1
       Value:
         Reference:
+          m_AssetGUID: 009c98f82696316dab4438e78409742f
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 1
+    - Key: Dialogue2
+      Value:
+        Reference:
+          m_AssetGUID: 715e0637ea296befda3b8d0624fe645a
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 1
+    - Key: Dialogue3
+      Value:
+        Reference:
           m_AssetGUID: dd7c1a6eb1273fb0c8cccb5949b1fc07
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 1
+    - Key: Dialogue4
+      Value:
+        Reference:
+          m_AssetGUID: 4504c169b07375cef9ff3beb08db5ab4
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 1
+    - Key: DialogueTense
+      Value:
+        Reference:
+          m_AssetGUID: efd653e265a63dd76985f16034b7728a
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        BuiltinLoop: 1
+        TestStart: 0
+        LoopStart: 0
+        LoopEnd: 0
+        MaxVolume: 0.5
+        IgnoreHighpass: 1
+    - Key: Win
+      Value:
+        Reference:
+          m_AssetGUID: 5f51dbc1667c1466b976ed26e8215719
           m_SubObjectName: 
           m_SubObjectType: 
           m_EditorAssetChanged: 0

@@ -9,7 +9,7 @@
 
   (if isFirstInit(
     (actor "right" { "actor" S "emotion" "idle" })
-    (playBGM "dialogue1")
+    (playBGM "dialogue2")
 
     (if FIRSTTIME
     (

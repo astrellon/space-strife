@@ -4,7 +4,7 @@
 
 (function levelStart(isFirstInit)
   (if isFirstInit(
-    (playBGM "dialogue1")
+    (playBGM "dialogue2")
 
     (switch
       ((&& (isChar A) (isChar B)) (startAliceBob))

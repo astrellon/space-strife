@@ -9,7 +9,7 @@
   (if isFirstInit (
     (actor "left" { "actor" MAINCHAR "emotion" "idle" })
     (actor "right" { "actor" S "emotion" "idle" })
-    (playBGM "dialogue1")
+    (playBGM "dialogue4")
 
     (line "left" "...")
     (line "right" "...")

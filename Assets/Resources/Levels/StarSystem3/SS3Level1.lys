@@ -9,7 +9,7 @@
   (if isFirstInit(
     (actor "right" { "actor" C "emotion" "idle" })
     (actor "left" { "actor" A "emotion" "idle" })
-    (playBGM "dialogue1")
+    (playBGM "dialogue3")
 
     (line "left" "Is this really where the " NAMES.aliens " are coming from?")
     (line "right" "The source of their communications appears to be emanating from the singularity.")
