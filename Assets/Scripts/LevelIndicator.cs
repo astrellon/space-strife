@@ -25,7 +25,7 @@ namespace Orbits
             }
 
             var message = "";
-            if (currentLevelContainer.ShipFocusedLevel)
+            if (currentLevelContainer.ShowShipHealth)
             {
                 var shipHealth = Mathf.RoundToInt(currentLevelContainer.Ship.Target.CurrentHealth);
                 var shipMaxHealth = Mathf.RoundToInt(currentLevelContainer.Ship.Target.MaxHealth);

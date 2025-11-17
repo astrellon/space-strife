@@ -27,7 +27,7 @@ namespace Orbits
             this.Planet = planet;
         }
 
-        public override void MoveTanksByKeyboard(PlayerTankController player, Vector2 inputMove)
+        public override void MoveTanksByKeyboard(PlayerTankController player, Vector3 inputMove)
         {
             this.MoveTanksLinear(player, inputMove.x);
         }

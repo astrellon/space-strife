@@ -21,7 +21,6 @@ namespace Orbits
         public bool HitPlanet = false;
         public Renderer? HealthBar;
         public GameObject? SpawnEffect;
-
         #endregion
 
         #region Unity Methods

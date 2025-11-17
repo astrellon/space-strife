@@ -46,7 +46,7 @@ namespace Orbits
         public TankShip? Ship;
         public List<GameObject> ToResetOnStopped = new();
         public List<StartLevelScriptPair> StartLevelScriptPairs = new();
-        public bool ShipFocusedLevel;
+        public bool ShowShipHealth;
         public bool ShowTargetIndicators = false;
 
         public List<GameObject> HideIfNotAvailable = new();

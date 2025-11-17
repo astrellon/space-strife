@@ -9,62 +9,13 @@ namespace Orbits
 {
     public class TankShip : ITankContainer, IReset
     {
-        private class Engine
-        {
-            public readonly ParticleSystem Graphic;
-
-            private readonly Vector3 angularNormal;
-            private readonly Transform transform;
-
-            public Engine(ParticleSystem graphic)
-            {
-                this.Graphic = graphic;
-                this.transform = graphic.transform;
-                var xzPosition = new Vector3(this.transform.localPosition.x, 0, this.transform.localPosition.z).normalized;
-                this.angularNormal = Vector3.Cross(this.transform.forward, xzPosition);
-            }
-
-            public void SetThrust(float thrust)
-            {
-                if (thrust > Mathf.Epsilon && !this.Graphic.isPlaying)
-                {
-                    this.Graphic.Play(withChildren: true);
-                }
-                else if (thrust <= Mathf.Epsilon && this.Graphic.isPlaying)
-                {
-                    this.Graphic.Stop(withChildren: true);
-                }
-            }
-
-            public void SetLinearThrustFromInput(Vector3 inputGlobal)
-            {
-                var graphicForward = -this.Graphic.transform.forward;
-                this.SetThrust(Vector2.Dot(graphicForward, inputGlobal));
-            }
-
-            public void SetAngularThrustFromInput(float angularInput)
-            {
-                var torqueInput = new Vector3(0.0f, -angularInput, 0.0f).normalized;
-                this.SetThrust(Vector3.Dot(torqueInput, this.angularNormal));
-            }
-
-            public void Clear()
-            {
-                this.Graphic.Stop(withChildren: true);
-                this.Graphic.Clear(withChildren: true);
-            }
-
-            public static Engine Create(ParticleSystem graphic)
-            {
-                return new Engine(graphic);
-            }
-        }
 
         #region Fields
         public List<Transform> Locations = new();
         public float ShipRadius = 2.0f;
         public Rigidbody Rigidbody;
         public float LinearThrust = 10.0f;
+        public float LateralThrust = 10.0f;
         public float AngularThrust = 10.0f;
         public List<ParticleSystem> Engines = new();
         public List<ParticleSystem> AngularEngines = new();
@@ -73,8 +24,9 @@ namespace Orbits
 
         private bool isLocked = false;
 
-        private readonly List<Engine> linearEngineStates = new();
-        private readonly List<Engine> angularEngineStates = new();
+        private readonly List<TankShipEngine> linearEngineStates = new();
+        private readonly List<TankShipEngine> angularEngineStates = new();
+        private readonly List<TankShipEngine> allEngineStates = new();
         #endregion
 
         #region Methods
@@ -85,8 +37,11 @@ namespace Orbits
                 this.Target = this.GetComponent<Target>();
             }
 
-            this.linearEngineStates.AddRange(this.Engines.Select(Engine.Create));
-            this.angularEngineStates.AddRange(this.AngularEngines.Select(Engine.Create));
+            this.linearEngineStates.AddRange(this.Engines.Select(TankShipEngine.Create));
+            this.angularEngineStates.AddRange(this.AngularEngines.Select(TankShipEngine.Create));
+
+            this.allEngineStates.AddRange(this.linearEngineStates);
+            this.allEngineStates.AddRange(this.angularEngineStates);
 
             GameManager.Instance.OnOrientationChange += this.OnOrientationChange;
         }
@@ -95,11 +50,7 @@ namespace Orbits
         {
             this.isLocked = true;
 
-            foreach (var engine in this.linearEngineStates)
-            {
-                engine.Clear();
-            }
-            foreach (var engine in this.angularEngineStates)
+            foreach (var engine in this.allEngineStates)
             {
                 engine.Clear();
             }
@@ -110,24 +61,45 @@ namespace Orbits
             this.isLocked = false;
         }
 
-        public override void MoveTanksByKeyboard(PlayerTankController player, Vector2 input)
+        public override void MoveTanksByKeyboard(PlayerTankController player, Vector3 input)
         {
-            if (this.isLocked)
+            foreach (var engine in this.allEngineStates)
             {
-                return;
+                engine.ResetThrust();
             }
 
-            this.DoLinearThrust(input.y);
-            this.DoAngularThrust(input.x);
+            if (!this.isLocked)
+            {
+                this.DoLinearThrust(input.y, input.z);
+                this.DoAngularThrust(input.x);
+            }
+
+            foreach (var engine in this.allEngineStates)
+            {
+                engine.PostInputUpdate();
+            }
         }
 
         public override void MoveTanksByJoystick(PlayerTankController player, Vector2 input, Vector3 localMainTankPos)
         {
-            if (this.isLocked)
+            foreach (var engine in this.allEngineStates)
             {
-                return;
+                engine.ResetThrust();
             }
 
+            if (!this.isLocked)
+            {
+                this.DoJoystickInput(input);
+            }
+
+            foreach (var engine in this.allEngineStates)
+            {
+                engine.PostInputUpdate();
+            }
+        }
+
+        private void DoJoystickInput(Vector2 input)
+        {
             var inputLength = input.magnitude;
             if (inputLength < 0.01f)
             {
@@ -142,7 +114,7 @@ namespace Orbits
             if (inputLength > 0.01f)
             {
                 dot = Vector3.Dot(currentForward, inputNorm);
-                this.DoLinearThrust(-dot);
+                this.DoLinearThrust(-dot, 0.0f);
             }
 
             var cross = Vector3.Cross(inputNorm, currentForward);
@@ -228,9 +200,10 @@ namespace Orbits
         {
         }
 
-        private void DoLinearThrust(float input)
+        private void DoLinearThrust(float forwardInput, float lateralInput)
         {
-            var inputLinear = input * -this.LinearThrust;
+            var inputLinear = forwardInput * -this.LinearThrust;
+            var inputLateral = lateralInput * this.LateralThrust;
 
             if (!Mathf.Approximately(inputLinear, 0.0f))
             {
@@ -243,11 +216,16 @@ namespace Orbits
                     engine.SetLinearThrustFromInput(thrustForward);
                 }
             }
-            else
+
+            if (!Mathf.Approximately(inputLateral, 0.0f))
             {
-                foreach (var engine in this.linearEngineStates)
+                var thrustLateral = this.transform.forward * inputLateral;
+                this.Rigidbody.AddForce(thrustLateral, ForceMode.Force);
+                thrustLateral.Normalize();
+
+                foreach (var engine in this.angularEngineStates)
                 {
-                    engine.SetThrust(0f);
+                    engine.SetLinearThrustFromInput(thrustLateral);
                 }
             }
         }
@@ -263,13 +241,6 @@ namespace Orbits
                 foreach (var engine in this.angularEngineStates)
                 {
                     engine.SetAngularThrustFromInput(input);
-                }
-            }
-            else
-            {
-                foreach (var engine in this.angularEngineStates)
-                {
-                    engine.SetThrust(0f);
                 }
             }
         }

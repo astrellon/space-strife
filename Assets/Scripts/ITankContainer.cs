@@ -10,7 +10,7 @@ namespace Orbits
         public virtual void InitPlanet(GameObject planet) { }
         public virtual void SetTank(Tank? tank, int index) { }
         public virtual void MoveTanksByJoystick(PlayerTankController player, Vector2 input, Vector3 localMainTankPos) { }
-        public virtual void MoveTanksByKeyboard(PlayerTankController player, Vector2 input) { }
+        public virtual void MoveTanksByKeyboard(PlayerTankController player, Vector3 input) { }
 
         public bool HandleMovementInUpdate = true;
 

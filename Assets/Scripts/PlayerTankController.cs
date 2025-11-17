@@ -72,15 +72,15 @@ namespace Orbits
             if (GameManager.Instance.CurrentLevel != null)
             {
                 var activities = GameManager.Instance.CurrentLevel.ActiveAbilities;
-                if (Input.GetKeyDown(KeyCode.Alpha1) && activities.Count > 0)
+                if (Input.GetButtonDown("Fire1") && activities.Count > 0)
                 {
                     activities[0].Execute(GameManager.Instance.CurrentLevel);
                 }
-                if (Input.GetKeyDown(KeyCode.Alpha2) && activities.Count > 1)
+                if (Input.GetButtonDown("Fire2") && activities.Count > 1)
                 {
                     activities[1].Execute(GameManager.Instance.CurrentLevel);
                 }
-                if (Input.GetKeyDown(KeyCode.Alpha3) && activities.Count > 2)
+                if (Input.GetButtonDown("Fire3") && activities.Count > 2)
                 {
                     activities[2].Execute(GameManager.Instance.CurrentLevel);
                 }
@@ -339,7 +339,8 @@ namespace Orbits
             {
                 var moveX = -Input.GetAxis("Horizontal");
                 var moveY = -Input.GetAxis("Vertical");
-                this.TankContainer.MoveTanksByKeyboard(this, new Vector2(moveX, moveY));
+                var moveZ = Input.GetAxis("Lateral");
+                this.TankContainer.MoveTanksByKeyboard(this, new Vector3(moveX, moveY, moveZ));
             }
         }
 
