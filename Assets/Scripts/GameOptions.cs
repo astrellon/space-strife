@@ -64,7 +64,7 @@ namespace Orbits
             {
                 if (value)
                 {
-                    Screen.SetResolution(Screen.width, Screen.height, true);
+                    Screen.SetResolution(Screen.width, Screen.height, FullScreenMode.FullScreenWindow);
                 }
                 else
                 {

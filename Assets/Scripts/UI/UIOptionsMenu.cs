@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +16,39 @@ namespace Orbits
             Selector, Gameplay, Graphics, Audio
         }
 
+        private class GameResolution : IComparable<GameResolution>
+        {
+            public readonly int Width;
+            public readonly int Height;
+            public readonly float AspectRatio;
+
+            public GameResolution(int width, int height)
+            {
+                this.Width = width;
+                this.Height = height;
+                if (height > 0)
+                {
+                    this.AspectRatio = (float)width / height;
+                }
+            }
+
+            public int CompareTo(GameResolution other)
+            {
+                var widthCompare = other.Width.CompareTo(this.Width);
+                if (widthCompare != 0)
+                {
+                    return widthCompare;
+                }
+
+                return other.Height.CompareTo(this.Height);
+            }
+        }
+
         #region Fields
+        private const float Aspect16_10 = 16.0f / 10.0f;
+        private const float Aspect16_9 = 16.0f / 9.0f;
+        private const float Aspect4_3 = 4.0f / 3.0f;
+
         public TabType CurrentTab = TabType.Selector;
 
         public GameObject? SelectorUI;
@@ -37,6 +72,11 @@ namespace Orbits
         public Slider? WaveSpeedScaleSlider;
         public Toggle? ToggleTankFire;
         public Toggle? PauseGameInMenus;
+        public TMP_Dropdown? ResolutionsMenu;
+        public TMP_Dropdown? RefreshRateMenu;
+
+        private readonly List<GameResolution> gameResolutions = new();
+        private readonly List<RefreshRate> gameRefreshRates = new();
         #endregion
 
         #region Unity Methods
@@ -63,7 +103,10 @@ namespace Orbits
                 this.AudioUI == null ||
 
                 this.ToggleTankFire == null ||
-                this.PauseGameInMenus == null)
+                this.PauseGameInMenus == null ||
+
+                this.ResolutionsMenu == null ||
+                this.RefreshRateMenu == null)
             {
                 Debug.LogError($"UIOptionsMenu missing set game objects sets");
                 return;
@@ -96,6 +139,20 @@ namespace Orbits
             this.ToggleTankFire.isOn = GameOptions.ToggleTankFire;
             this.PauseGameInMenus.isOn = GameOptions.PauseGameInMenus;
 
+            var showResolutionMenu = true;
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                showResolutionMenu = false;
+            }
+            else
+            {
+                this.UpdateResolutions();
+            }
+
+            this.RefreshRateMenu.gameObject.SetActive(showResolutionMenu);
+            this.ResolutionsMenu.gameObject.SetActive(showResolutionMenu);
+            this.FullScreen.gameObject.SetActive(!showResolutionMenu);
+
             this.SelectorUI.SetActive(true);
             this.GraphicsUI.SetActive(false);
             this.GameplayUI.SetActive(false);
@@ -104,6 +161,141 @@ namespace Orbits
         #endregion
 
         #region Methods
+        private void UpdateResolutionList()
+        {
+            this.gameResolutions.Clear();
+            this.gameRefreshRates.Clear();
+
+            var resolutions = Screen.resolutions;
+            var currentRes = Screen.currentResolution;
+
+            var resolutionSet = new HashSet<long>();
+            var refreshSet = new HashSet<ulong>();
+
+            if (currentRes.refreshRateRatio.value > Mathf.Epsilon)
+            {
+                var key = (ulong)currentRes.refreshRateRatio.numerator << 32 | (ulong)currentRes.refreshRateRatio.denominator;
+                refreshSet.Add(key);
+
+                this.gameRefreshRates.Add(currentRes.refreshRateRatio);
+            }
+
+            for (var i = 0; i < resolutions.Length; i++)
+            {
+                var res = resolutions[i];
+
+                var refreshKey = (ulong)res.refreshRateRatio.numerator << 32 | (ulong)res.refreshRateRatio.denominator;
+                if (refreshSet.Add(refreshKey))
+                {
+                    this.gameRefreshRates.Add(res.refreshRateRatio);
+                }
+
+                var resKey = (long)res.width << 32 | (long)res.height;
+                if (!resolutionSet.Add(resKey))
+                {
+                    continue;
+                }
+
+                this.gameResolutions.Add(new(res.width, res.height));
+            }
+
+            this.gameResolutions.Sort();
+            this.gameResolutions.Insert(0, new(0, 0));
+            this.gameRefreshRates.Sort((x, y) => x.value.CompareTo(y.value));
+        }
+
+        public void UpdateResolutions()
+        {
+            if (this.ResolutionsMenu == null || this.RefreshRateMenu == null)
+            {
+                return;
+            }
+
+            this.UpdateResolutionList();
+
+            this.ResolutionsMenu.ClearOptions();
+            this.RefreshRateMenu.ClearOptions();
+
+            var selectedRes = Screen.fullScreen ? -1 : 0;
+            var currentRes = Screen.currentResolution;
+
+            var resOptions = new List<TMP_Dropdown.OptionData>(this.gameResolutions.Count);
+            for (var i = 0; i < this.gameResolutions.Count; i++)
+            {
+                var resolution = this.gameResolutions[i];
+
+                if (resolution.Width == 0)
+                {
+                    resOptions.Add(new("Windowed"));
+                }
+                else
+                {
+                    var text = $"{resolution.Width}x{resolution.Height}";
+                    if (Mathf.Approximately(resolution.AspectRatio, Aspect16_10))
+                    {
+                        text += " (16:10)";
+                    }
+                    else if (Mathf.Approximately(resolution.AspectRatio, Aspect16_9))
+                    {
+                        text += " (16:9)";
+                    }
+                    else if (Mathf.Approximately(resolution.AspectRatio, Aspect4_3))
+                    {
+                        text += " (4:3)";
+                    }
+
+                    resOptions.Add(new(text));
+                }
+
+                if (selectedRes < 0 && resolution.Width == currentRes.width && resolution.Height == currentRes.height)
+                {
+                    selectedRes = i;
+                }
+            }
+
+            this.ResolutionsMenu.AddOptions(resOptions);
+            if (selectedRes >= 0)
+            {
+                this.ResolutionsMenu.value = selectedRes;
+            }
+
+            var selectedRate = -1;
+            var rateOptions = new List<TMP_Dropdown.OptionData>(this.gameRefreshRates.Count);
+            for (var i = 0; i < this.gameRefreshRates.Count; i++)
+            {
+                var rate = this.gameRefreshRates[i];
+                if (selectedRate < 0 && rate.numerator == currentRes.refreshRateRatio.numerator && rate.denominator == currentRes.refreshRateRatio.denominator)
+                {
+                    selectedRate = i;
+                }
+                rateOptions.Add(new(rate.value.ToString()));
+            }
+
+            this.RefreshRateMenu.AddOptions(rateOptions);
+            if (selectedRate >= 0)
+            {
+                this.RefreshRateMenu.value = selectedRate;
+            }
+        }
+
+        public void OnResolutionChanged(int index)
+        {
+            var option = this.gameResolutions[index];
+            if (option.Width <= 0)
+            {
+                Screen.fullScreen = false;
+                return;
+            }
+
+            Screen.SetResolution(option.Width, option.Height, FullScreenMode.FullScreenWindow);
+        }
+
+        public void OnRefreshRateChanged(int index)
+        {
+            var option = this.gameRefreshRates[index];
+            Screen.SetResolution(Screen.width, Screen.height, Screen.fullScreenMode, option);
+        }
+
         public void OnChangeBloom(bool value)
         {
             GameOptions.EnableBloom = value;
