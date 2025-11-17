@@ -268,7 +268,7 @@ namespace Orbits
                 {
                     selectedRate = i;
                 }
-                rateOptions.Add(new(rate.value.ToString()));
+                rateOptions.Add(new(rate.value.ToString("0.##")));
             }
 
             this.RefreshRateMenu.AddOptions(rateOptions);
